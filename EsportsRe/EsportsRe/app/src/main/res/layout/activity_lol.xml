@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="none.esportsre.lol">
+
+    <RelativeLayout
+        android:layout_width="397dp"
+        android:layout_height="591dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="11dp">
+
+        <Button
+            android:id="@+id/dataGetter"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_alignLeft="@+id/Search"
+            android:layout_alignStart="@+id/Search"
+            android:layout_below="@+id/textHere"
+            android:layout_weight="1"
+            android:elevation="5dp"
+            android:text="Search"
+            tools:layout_editor_absoluteX="34dp"
+            tools:layout_editor_absoluteY="73dp" />
+
+        <Button
+            android:id="@+id/goBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Go back"
+            android:visibility="invisible"
+            tools:layout_editor_absoluteX="161dp"
+            tools:layout_editor_absoluteY="497dp" />
+
+        <TextView
+            android:id="@+id/textHere"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_weight="1"
+            android:maxLines="10000"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.547"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.29" />
+
+        <EditText
+            android:id="@+id/Search"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_alignTop="@+id/textHere"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:inputType="textPersonName"
+            app:layout_constraintHorizontal_bias="0.89"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:layout_editor_absoluteY="-226dp" />
+
+        <ImageButton
+            android:id="@+id/astralis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="46dp"
+            android:background="@drawable/echofox"
+            app:srcCompat="@drawable/echofox"
+            android:layout_below="@+id/dataGetter"
+            android:layout_centerHorizontal="true" />
+
+        <Button
+            android:id="@+id/allMatches"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:text="All matches"
+            android:layout_alignTop="@+id/dataGetter"
+            android:layout_alignRight="@+id/Search"
+            android:layout_alignEnd="@+id/Search" />
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>

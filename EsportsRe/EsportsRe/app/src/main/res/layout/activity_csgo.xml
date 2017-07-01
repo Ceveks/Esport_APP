@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="none.esportsre.csgo">
+
+    <Button
+        android:id="@+id/clearMatches"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Clear all"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <Button
+        android:id="@+id/savedMatches"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="saved matches"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <RelativeLayout
+        android:id="@+id/RELATIVElayout"
+        android:layout_width="395dp"
+        android:layout_height="550dp"
+        android:paddingTop="50dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        tools:layout_editor_absoluteX="18dp"
+        tools:layout_editor_absoluteY="60dp">
+
+        <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dataGetter"
+            android:layout_marginRight="17dp"
+
+            android:layout_marginTop="55dp"
+            android:columnCount="4"
+            android:rowCount="2"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/north"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/north"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_row="0"
+                android:layout_column="1"
+                />
+
+            <ImageButton
+                android:id="@+id/astralis"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/dataGetter"
+                android:layout_alignStart="@+id/dataGetter"
+                android:layout_centerVertical="true"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/astralis"
+                android:layout_column="0"
+                android:layout_row="0"/>
+
+            <ImageButton
+                android:id="@+id/heroic"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/heroic"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_row="0"
+                android:layout_column="2"/>
+
+            <ImageButton
+                android:id="@+id/cloud9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                app:srcCompat="@drawable/cloudnine"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_row="0"
+                android:layout_column="3"/>
+        </GridLayout>
+
+        <TextView
+            android:id="@+id/textHere"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="50dp"
+            android:layout_weight="1"
+            android:maxLines="10000"
+            android:scrollbarStyle="insideInset"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.547"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.29" />
+
+        <Button
+            android:id="@+id/dataGetter"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+
+            android:layout_weight="1"
+            android:elevation="5dp"
+            android:text="Search"
+            tools:layout_editor_absoluteX="34dp"
+            tools:layout_editor_absoluteY="73dp"
+            android:layout_below="@+id/Search"
+            android:layout_alignLeft="@+id/Search"
+            android:layout_alignStart="@+id/Search" />
+
+        <Button
+            android:id="@+id/goBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Go back"
+            android:visibility="invisible"
+            tools:layout_editor_absoluteX="161dp"
+            tools:layout_editor_absoluteY="497dp" />
+
+        <EditText
+            android:id="@+id/Search"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_alignBottom="@+id/textHere"
+            android:layout_centerHorizontal="true"
+            android:layout_weight="1"
+            android:inputType="textPersonName"
+            app:layout_constraintHorizontal_bias="0.89"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:layout_editor_absoluteY="-226dp" />
+
+        <Button
+            android:id="@+id/allMatches"
+            android:layout_width="100dp"
+            android:layout_height="60dp"
+            android:text="All matches"
+            android:layout_alignTop="@+id/dataGetter"
+            android:layout_alignRight="@+id/Search"
+            android:layout_alignEnd="@+id/Search" />
+
+        <ListView
+            android:id="@+id/ListerID"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/dataGetter"
+            android:layout_marginTop="30dp"
+
+            android:background="@android:color/holo_blue_dark" />
+
+        <ListView
+            android:id="@+id/savedList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/dataGetter"
+            android:layout_marginTop="30dp"
+
+            android:background="@android:color/holo_blue_dark" />
+
+    </RelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
