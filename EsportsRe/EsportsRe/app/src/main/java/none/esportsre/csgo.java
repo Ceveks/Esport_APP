@@ -224,22 +224,22 @@ public class csgo extends AppCompatActivity {
                             public void run() {
 
                                String[] str = strBuild.toString().split("#");
-                                String strB[] = new String[str.length];
+                                String[] strB = new String[str.length];
 
 
-                                    for(int a = 0; a <= str.length; a++){
+                                   for(int a = 1; a <= str.length-1; a++){
 
                                         strB[a] = getDifference(parseDateToyyyyMMdd(str[a].split(":")[2]), str[a].substring(0, 5));
 
-                                    }
+                                   }
 
-                                    for (int z = 0; z < str.length; z++) {
-                                        savedItems.add(str[z]);
+                                for (int z = 0; z < str.length; z++) {
+                                        savedItems.add(str[z]+" || "+strB[z]);
                                         savedAdapter.notifyDataSetChanged();
                                     }
 
-
                                 savedItems.remove(0);
+
 
                             }
                         });
