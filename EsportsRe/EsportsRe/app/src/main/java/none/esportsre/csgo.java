@@ -436,7 +436,7 @@ public class csgo extends AppCompatActivity {
                 cloud.setVisibility(View.INVISIBLE);
                 nort.setVisibility(View.INVISIBLE);
                 allBut.setVisibility(View.INVISIBLE);
-                searchedWord ="aidsidasdiafjksjddksjaldkjasdhusdyhuaha";
+                searchedWord ="aidsidasdiafjksjddksjaldkjasdhusdyhuah";
                 getData();
             }
         });
