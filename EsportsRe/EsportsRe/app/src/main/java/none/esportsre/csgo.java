@@ -422,7 +422,7 @@ public class csgo extends AppCompatActivity {
 
 
         allBut = (Button) findViewById(R.id.allMatches);
-        allBut.setEnabled(false);
+
         allBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -432,8 +432,11 @@ public class csgo extends AppCompatActivity {
                 teamsAuto.setVisibility(View.INVISIBLE);
                 goback.setVisibility(View.VISIBLE);
                 ast.setVisibility(View.INVISIBLE);
+                hero.setVisibility(View.INVISIBLE);
+                cloud.setVisibility(View.INVISIBLE);
+                nort.setVisibility(View.INVISIBLE);
                 allBut.setVisibility(View.INVISIBLE);
-
+                searchedWord ="aidsidasdiafjksjddksjaldkjasdhusdyhuaha";
                 getData();
             }
         });
@@ -627,6 +630,41 @@ public class csgo extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         break;
+                    case "aidsidasdiafjksjddksjaldkjasdhusdyhuaha":
+
+                        ele = doc.select("div.upcoming-matches");
+                        for (Element date : ele.select("div.match-day")) {
+                            for (Element element : date.select("table.table")) {
+
+                                if (element.select("div.team").text().toLowerCase().contains(getteam1.toLowerCase().trim())
+                                        ||element.select("div.team").text().toLowerCase().contains(getteam2.toLowerCase().trim())
+                                        || element.select("div.team").text().toLowerCase().contains(getteam3.toLowerCase().trim())
+                                        || element.select("div.team").text().toLowerCase().contains(getteam4.toLowerCase().trim())  ) {
+                                    String currentDate = parseDateToddMMyyyy(date.select("span.standard-headline").text());
+
+                                    String daysLeft = getDifference(date.select("span.standard-headline").text(), element.select("div.time").text());
+
+                                    builder.append("#").append(element.select("div.time").text()).
+                                            append("  -  ").append(element.select("div.team").first().text()).
+                                            append("  vs.  ").append(element.select("div.team").last().text());
+
+                                    if (element.select("div.team").last().text().length() > 10 || element.select("div.team").last().text().length() > 10) {
+
+
+                                        builder.append(" - ").append("   date:   ").
+                                                append(currentDate).append(" || ").append(daysLeft).append("\n");
+
+                                    } else {
+
+                                        builder.append("    -                         ").append("   date:   ").
+                                                append(currentDate).append(" || ").append(daysLeft).append("\n");
+                                    }
+
+                                }
+                            }
+                        }
+
+
 /*
                     case "":
 
@@ -686,7 +724,7 @@ public class csgo extends AppCompatActivity {
 
                                 } else {
 
-                                    builder.append("    -                    ").append("   date:   ").
+                                    builder.append("    -                         ").append("   date:   ").
                                             append(currentDate).append(" || ").append(daysLeft).append("\n");
                                 }
                             }
