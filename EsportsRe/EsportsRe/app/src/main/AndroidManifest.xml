@@ -18,10 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".csgo"/>
-        <activity android:name=".lol"/>
-        <receiver android:name=".MyBroadcastReceiver"></receiver>
+        <activity android:name=".csgo" />
+        <activity android:name=".lol" />
 
+        <receiver android:name=".MyBroadcastReceiver" />
+
+        <activity android:name=".settings"></activity>
     </application>
 
 </manifest>

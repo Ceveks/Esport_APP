@@ -26,7 +26,7 @@
 
     <RelativeLayout
         android:id="@+id/RELATIVElayout"
-        android:layout_width="395dp"
+        android:layout_width="420dp"
         android:layout_height="550dp"
         android:paddingTop="50dp"
         android:paddingLeft="30dp"
@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                app:srcCompat="@drawable/north"
+
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_row="0"
@@ -66,7 +66,7 @@
                 android:layout_alignStart="@+id/dataGetter"
                 android:layout_centerVertical="true"
                 android:background="@android:color/transparent"
-                app:srcCompat="@drawable/astralis"
+
                 android:layout_column="0"
                 android:layout_row="0"/>
 
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                app:srcCompat="@drawable/heroic"
+
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_row="0"
@@ -86,7 +86,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
-                app:srcCompat="@drawable/cloudnine"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_row="0"
@@ -140,7 +139,9 @@
             tools:layout_editor_absoluteX="161dp"
             tools:layout_editor_absoluteY="497dp" />
 
-        <EditText
+
+        
+        <AutoCompleteTextView
             android:id="@+id/Search"
             android:layout_width="250dp"
             android:layout_height="50dp"
@@ -148,10 +149,11 @@
             android:layout_centerHorizontal="true"
             android:layout_weight="1"
             android:inputType="textPersonName"
+            android:hint="Team name"
             app:layout_constraintHorizontal_bias="0.89"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            tools:layout_editor_absoluteY="-226dp" />
+            tools:layout_editor_absoluteY="-226dp"/>
 
         <Button
             android:id="@+id/allMatches"

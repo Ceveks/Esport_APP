@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="none.esportsre.settings">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.466">
+
+        <TextView
+            android:id="@+id/select4Teams"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Select four teams"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+        <CheckBox
+            android:id="@+id/astral"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="selectItem"
+            android:text="Astralis" />
+
+        <CheckBox
+            android:id="@+id/sk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="selectItem"
+            android:text="SK" />
+
+        <CheckBox
+            android:id="@+id/Cloud9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="selectItem"
+            android:text="Cloud9" />
+
+        <CheckBox
+            android:id="@+id/fnatic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="selectItem"
+            android:text="Fnatic" />
+
+        <CheckBox
+            android:id="@+id/virtuspro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="selectItem"
+            android:text="Virtus.pro" />
+
+        <CheckBox
+            android:id="@+id/nip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="selectItem"
+            android:text="NiP" />
+
+        <CheckBox
+            android:id="@+id/navi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="selectItem"
+            android:text="Natus Vincere" />
+
+        <CheckBox
+            android:id="@+id/g2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="selectItem"
+            android:text="G2" />
+
+        <CheckBox
+            android:id="@+id/northCheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="selectItem"
+            android:text="North" />
+
+        <CheckBox
+            android:id="@+id/Faze"
+            android:layout_width="138dp"
+            android:layout_height="wrap_content"
+            android:onClick="selectItem"
+            android:text="FaZe" />
+
+        <CheckBox
+            android:id="@+id/liquid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="selectItem"
+            android:text="Liquid" />
+
+        <CheckBox
+            android:id="@+id/mousesports"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="selectItem"
+            android:text="mousesports" />
+
+        <CheckBox
+            android:id="@+id/gambit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="selectItem"
+            android:text="Gambit" />
+
+        <CheckBox
+            android:id="@+id/heroicCheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="selectItem"
+            android:text="Heroic" />
+
+        <Button
+            android:id="@+id/saveButt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="save"
+            tools:layout_editor_absoluteX="46dp"
+            tools:layout_editor_absoluteY="438dp" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

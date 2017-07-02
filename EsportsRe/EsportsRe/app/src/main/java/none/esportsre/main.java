@@ -14,7 +14,7 @@ import java.io.IOException;
 public class main extends AppCompatActivity {
 
     Button csgoButton;
-
+    Button settingsButt;
     Button lolButt;
     TextView textView;
     @Override
@@ -23,6 +23,7 @@ public class main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         csgoButton = (Button) findViewById(R.id.csgoButt);
         lolButt = (Button) findViewById(R.id.lolButton);
+        settingsButt = (Button) findViewById(R.id.settingsButton);
 
         lolButt.setEnabled(false);
 
@@ -41,6 +42,14 @@ public class main extends AppCompatActivity {
                 startActivity(csgoActive);
             }
         });
+        settingsButt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent settingsActive = new Intent(main.this, settings.class);
+                startActivity(settingsActive);
+            }
+        });
+
     }
 
 }

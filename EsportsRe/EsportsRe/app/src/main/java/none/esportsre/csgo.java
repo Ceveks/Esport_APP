@@ -1,13 +1,21 @@
 package none.esportsre;
 
+import android.app.ActionBar;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.graphics.Path;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -17,7 +25,6 @@ import android.widget.Toast;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
-import org.joda.time.PeriodType;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 import org.jsoup.Jsoup;
@@ -33,21 +40,26 @@ import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 
 public class csgo extends AppCompatActivity {
 
     Button btn;
-    EditText search;
+
     String searchedWord;
     Button goback;
     Button allBut;
     Button clearBut;
     Button saved;
+
+    String getteam1;
+    String getteam2;
+    String getteam3;
+    String getteam4;
+
 
 
 
@@ -65,6 +77,8 @@ public class csgo extends AppCompatActivity {
     ImageButton nort;
     ImageButton hero;
     ImageButton cloud;
+    AutoCompleteTextView teamsAuto;
+    String[] teamAutoArray;
 
 
     @Override
@@ -72,9 +86,68 @@ public class csgo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_csgo);
 
+
+        favteams();
+
+        teamsAuto = (AutoCompleteTextView) findViewById(R.id.Search);
+        teamAutoArray = getResources().getStringArray(R.array.teamsForAutofill);
+
+        final ArrayAdapter<String> teamAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, teamAutoArray);
+
+        teamsAuto.setAdapter(teamAdapter);
+
+
+
+        ast = (ImageButton)findViewById(R.id.astralis);
+        cloud = (ImageButton) findViewById(R.id.cloud9);
         nort = (ImageButton) findViewById(R.id.north);
         hero = (ImageButton) findViewById(R.id.heroic);
-        cloud = (ImageButton) findViewById(R.id.cloud9);
+
+        String mDrawableName1 = getteam1;
+        if(getteam1.isEmpty()){
+            mDrawableName1 = "astralis";
+            int resID = getResources().getIdentifier(mDrawableName1, "drawable", getPackageName());
+            ast.setBackgroundResource(resID);
+
+
+        }else {
+            int resID = getResources().getIdentifier(mDrawableName1, "drawable", getPackageName());
+            ast.setBackgroundResource(resID);
+        }
+        String mDrawableName2 = getteam2;
+        if(getteam2.isEmpty()){
+            mDrawableName2 = "north";
+            int resID = getResources().getIdentifier(mDrawableName2, "drawable", getPackageName());
+            nort.setBackgroundResource(resID);
+        }else {
+            int resID = getResources().getIdentifier(mDrawableName2, "drawable", getPackageName());
+
+
+            nort.setBackgroundResource(resID);
+        }
+        String mDrawableName3 = getteam3;
+        if(getteam3.isEmpty()){
+            mDrawableName3 = "heroic";
+            int resID = getResources().getIdentifier(mDrawableName3, "drawable", getPackageName());
+            hero.setBackgroundResource(resID);
+        }else {
+            int resID = getResources().getIdentifier(mDrawableName3, "drawable", getPackageName());
+
+            hero.setBackgroundResource(resID);
+        }
+        String mDrawableName4 = getteam4;
+        if(getteam4.isEmpty()){
+            mDrawableName4 = "cloud9";
+            int resID = getResources().getIdentifier(mDrawableName4, "drawable", getPackageName());
+            cloud.setBackgroundResource(resID);
+        }else {
+            int resID = getResources().getIdentifier(mDrawableName4, "drawable", getPackageName());
+
+            cloud.setBackgroundResource(resID);
+        }
+
+
+
         tex = (TextView) findViewById(R.id.textHere);
         clearBut =(Button)findViewById(R.id.clearMatches);
         clearBut.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +166,7 @@ public class csgo extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
 
-                            search.setText("");
+                            teamsAuto.setText("");
                             tex.setText("");
                             savedLister.setVisibility(View.INVISIBLE);
                             clearBut.setVisibility(View.INVISIBLE);
@@ -101,7 +174,7 @@ public class csgo extends AppCompatActivity {
                             saved.setVisibility(View.VISIBLE);
                             listItems.clear();
                             btn.setVisibility(View.VISIBLE);
-                            search.setVisibility(View.VISIBLE);
+                            teamsAuto.setVisibility(View.VISIBLE);
                             goback.setVisibility(View.INVISIBLE);
                             lister.setVisibility(View.INVISIBLE);
                             allBut.setVisibility(View.VISIBLE);
@@ -133,7 +206,7 @@ public class csgo extends AppCompatActivity {
         });
 
 
-        search = (EditText) findViewById(R.id.Search);
+
 
         adapter = new ArrayAdapter<>(getApplicationContext(),
                 android.R.layout.simple_list_item_1, listItems);
@@ -183,7 +256,7 @@ public class csgo extends AppCompatActivity {
                 clearBut.setVisibility(View.VISIBLE);
                 savedLister.setVisibility(View.VISIBLE);
                 btn.setVisibility(View.INVISIBLE);
-                search.setVisibility(View.INVISIBLE);
+                teamsAuto.setVisibility(View.INVISIBLE);
                 goback.setVisibility(View.VISIBLE);
                 ast.setVisibility(View.INVISIBLE);
                 lister.setVisibility(View.INVISIBLE);
@@ -238,7 +311,17 @@ public class csgo extends AppCompatActivity {
                                         savedAdapter.notifyDataSetChanged();
                                     }
 
+
                                 savedItems.remove(0);
+
+                                savedAdapter.sort(new Comparator<String>() {
+                                    @Override
+                                    public int compare(String s, String t1) {
+
+
+                                        return 0;
+                                    }
+                                });
 
 
                             }
@@ -252,6 +335,8 @@ public class csgo extends AppCompatActivity {
         });
 
         lister = (ListView) findViewById(R.id.ListerID);
+
+
 
         lister.setAdapter(adapter);
         lister.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -333,7 +418,7 @@ public class csgo extends AppCompatActivity {
         lister.setVisibility(View.INVISIBLE);
         goback = (Button) findViewById(R.id.goBack);
         btn = (Button) findViewById(R.id.dataGetter);
-        ast = (ImageButton)findViewById(R.id.astralis);
+
 
         allBut = (Button) findViewById(R.id.allMatches);
         allBut.setEnabled(false);
@@ -343,7 +428,7 @@ public class csgo extends AppCompatActivity {
 
                 btn.setVisibility(View.INVISIBLE);
                 lister.setVisibility(View.VISIBLE);
-                search.setVisibility(View.INVISIBLE);
+                teamsAuto.setVisibility(View.INVISIBLE);
                 goback.setVisibility(View.VISIBLE);
                 ast.setVisibility(View.INVISIBLE);
                 allBut.setVisibility(View.INVISIBLE);
@@ -356,11 +441,14 @@ public class csgo extends AppCompatActivity {
         ast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchedWord = "astralis";
-
+                if(getteam1.isEmpty()){
+                    searchedWord="astralis";
+                }else {
+                    searchedWord = getteam1;
+                }
                 lister.setVisibility(View.VISIBLE);
                 btn.setVisibility(View.INVISIBLE);
-                search.setVisibility(View.INVISIBLE);
+                teamsAuto.setVisibility(View.INVISIBLE);
                 goback.setVisibility(View.VISIBLE);
                 ast.setVisibility(View.INVISIBLE);
                 cloud.setVisibility(View.INVISIBLE);
@@ -375,11 +463,16 @@ public class csgo extends AppCompatActivity {
         nort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchedWord = "north";
+                if(getteam1.isEmpty()){
+                    searchedWord="north";
+                }else {
+                    searchedWord = getteam2;
+                }
+
 
                 lister.setVisibility(View.VISIBLE);
                 btn.setVisibility(View.INVISIBLE);
-                search.setVisibility(View.INVISIBLE);
+                teamsAuto.setVisibility(View.INVISIBLE);
                 goback.setVisibility(View.VISIBLE);
                 ast.setVisibility(View.INVISIBLE);
                 cloud.setVisibility(View.INVISIBLE);
@@ -393,11 +486,16 @@ public class csgo extends AppCompatActivity {
         hero.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchedWord = "heroic";
 
+                if(getteam1.isEmpty()){
+                    searchedWord="heroic";
+                }else {
+
+                    searchedWord = getteam3;
+                }
                 lister.setVisibility(View.VISIBLE);
                 btn.setVisibility(View.INVISIBLE);
-                search.setVisibility(View.INVISIBLE);
+                teamsAuto.setVisibility(View.INVISIBLE);
                 goback.setVisibility(View.VISIBLE);
                 ast.setVisibility(View.INVISIBLE);
                 cloud.setVisibility(View.INVISIBLE);
@@ -411,11 +509,15 @@ public class csgo extends AppCompatActivity {
         cloud.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchedWord = "cloud9";
+                if(getteam1.isEmpty()){
+                    searchedWord="cloud9";
+                }else {
+                    searchedWord = getteam4;
+                }
 
                 lister.setVisibility(View.VISIBLE);
                 btn.setVisibility(View.INVISIBLE);
-                search.setVisibility(View.INVISIBLE);
+                teamsAuto.setVisibility(View.INVISIBLE);
                 goback.setVisibility(View.VISIBLE);
                 ast.setVisibility(View.INVISIBLE);
                 cloud.setVisibility(View.INVISIBLE);
@@ -431,7 +533,7 @@ public class csgo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                searchedWord = search.getText().toString();
+                searchedWord = teamsAuto.getText().toString();
 
                 if (searchedWord.length() < 2) {
 
@@ -441,9 +543,9 @@ public class csgo extends AppCompatActivity {
                 } else {
                     getData();
                     btn.setVisibility(View.INVISIBLE);
-                    search.setVisibility(View.INVISIBLE);
+                    teamsAuto.setVisibility(View.INVISIBLE);
                     goback.setVisibility(View.VISIBLE);
-                    search.setText("");
+                    teamsAuto.setText("");
                     lister.setVisibility(View.VISIBLE);
                     cloud.setVisibility(View.INVISIBLE);
                     hero.setVisibility(View.INVISIBLE);
@@ -457,14 +559,14 @@ public class csgo extends AppCompatActivity {
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                search.setText("");
+                teamsAuto.setText("");
                 tex.setText("");
                 savedLister.setVisibility(View.INVISIBLE);
                 savedItems.clear();
                 saved.setVisibility(View.VISIBLE);
                 listItems.clear();
                 btn.setVisibility(View.VISIBLE);
-                search.setVisibility(View.VISIBLE);
+                teamsAuto.setVisibility(View.VISIBLE);
                 goback.setVisibility(View.INVISIBLE);
                 lister.setVisibility(View.INVISIBLE);
                 allBut.setVisibility(View.VISIBLE);
@@ -485,42 +587,75 @@ public class csgo extends AppCompatActivity {
             @Override
             public void run() {
                 final StringBuilder builder = new StringBuilder();
+                String tolowercaseAndTrimmed = searchedWord.toLowerCase().trim();
 
-
+                Document doc = null;
                 try {
+                    doc = Jsoup.connect("https://www.hltv.org/matches").get();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                ;
+                Elements ele;
+                switch(tolowercaseAndTrimmed){
+                    case "sk":
 
-                    Document doc = Jsoup.connect("https://www.hltv.org/matches").get();
-                    Elements ele = doc.select("div.upcoming-matches");
-                    for(Element date :  ele.select("div.match-day") ) {
-                        for (Element element : date.select("table.table")) {
-                            if (element.select("div.team").text().toLowerCase().contains(searchedWord.toLowerCase())) {
-                                String currentDate = parseDateToddMMyyyy(date.select("span.standard-headline").text());
+                        try {
+                            doc = Jsoup.connect("https://www.hltv.org/matches?team=6137").get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
 
-                                String daysLeft = getDifference(date.select("span.standard-headline").text(), element.select("div.time").text());
+                    case "navi":
 
-                                builder.append("#").append(element.select("div.time").text()).
-                                        append("  -  ").append(element.select("div.team").first().text()).
-                                        append("  vs.  ").append(element.select("div.team").last().text());
+                        try {
+                            doc = Jsoup.connect("https://www.hltv.org/matches?team=4608").get();
+                            searchedWord = "natus vincere";
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
 
-                                if (element.select("div.team").last().text().length() > 10 || element.select("div.team").last().text().length() >10) {
+                    case "north":
+
+                        try {
+                            doc = Jsoup.connect("https://www.hltv.org/matches?team=7533").get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
 
 
-                                    builder.append(" - ").append("   date:   ").
-                                            append(currentDate).append(" || ").append(daysLeft).append("\n");
 
-                                }else{
+                }
 
-                                    builder.append("    -                    ").append("   date:   ").
-                                            append(currentDate).append(" || ").append(daysLeft).append("\n");
-                                }
+
+                ele = doc.select("div.upcoming-matches");
+                for(Element date :  ele.select("div.match-day") ) {
+                    for (Element element : date.select("table.table")) {
+                        if (element.select("div.team").text().toLowerCase().contains(searchedWord.toLowerCase().trim())) {
+                            String currentDate = parseDateToddMMyyyy(date.select("span.standard-headline").text());
+
+                            String daysLeft = getDifference(date.select("span.standard-headline").text(), element.select("div.time").text());
+
+                            builder.append("#").append(element.select("div.time").text()).
+                                    append("  -  ").append(element.select("div.team").first().text()).
+                                    append("  vs.  ").append(element.select("div.team").last().text());
+
+                            if (element.select("div.team").last().text().length() > 10 || element.select("div.team").last().text().length() >10) {
+
+
+                                builder.append(" - ").append("   date:   ").
+                                        append(currentDate).append(" || ").append(daysLeft).append("\n");
+
+                            }else{
+
+                                builder.append("    -                    ").append("   date:   ").
+                                        append(currentDate).append(" || ").append(daysLeft).append("\n");
                             }
                         }
                     }
-
-                }catch (IOException e){
-                    Toast exepToast = Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG);
-                    exepToast.show();
-
                 }
 
                 runOnUiThread(new Runnable() {
@@ -640,7 +775,18 @@ public class csgo extends AppCompatActivity {
 
     return formatter.print(period);
     }
+
+    public void favteams(){
+        SharedPreferences teams = getSharedPreferences("favteams", Context.MODE_PRIVATE);
+        getteam1 = teams.getString("team1", "");
+        getteam2 = teams.getString("team2", "");
+        getteam3 = teams.getString("team3", "");
+        getteam4 = teams.getString("team4", "");
+
+    }
+
 }
+
 
 
 

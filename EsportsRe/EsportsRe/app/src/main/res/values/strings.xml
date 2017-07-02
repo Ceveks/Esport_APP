@@ -1,3 +1,43 @@
 <resources>
     <string name="app_name">EsportsRe</string>
+
+    <string-array name="teamsForAutofill">
+
+        <item>SK </item>
+        <item>Astralis </item>
+        <item>Fnatic </item>
+        <item>Cloud9 </item>
+        <item>Virtus.pro </item>
+        <item>NiP </item>
+        <item>G2 </item>
+        <item>North </item>
+        <item>FaZe </item>
+        <item>Liquid </item>
+        <item>mousesports </item>
+        <item>Gambit </item>
+        <item>Heroic </item>
+        <item>OpTic</item>
+        <item>PENTA</item>
+        <item>Renegades</item>
+        <item>dignitas</item>
+        <item>TyLoo</item>
+        <item>Immortals</item>
+        <item>GODSENT</item>
+        <item>Tengri</item>
+        <item>HellRaisers</item>
+        <item>BIG</item>
+        <item>Vega Squadron</item>
+        <item>CLG</item>
+        <item>Misfits</item>
+        <item>Chiefs</item>
+        <item>Space Soldiers</item>
+        <item>EnVyUs</item>
+        <item>NRG</item>
+        <item>OutLaws</item>
+
+
+
+
+
+    </string-array>
 </resources>
