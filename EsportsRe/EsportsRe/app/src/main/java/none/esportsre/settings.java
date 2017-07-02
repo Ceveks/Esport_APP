@@ -40,7 +40,7 @@ public class settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         fnatic = (CheckBox) findViewById(R.id.fnatic);
         north = (CheckBox) findViewById(R.id.northCheck);

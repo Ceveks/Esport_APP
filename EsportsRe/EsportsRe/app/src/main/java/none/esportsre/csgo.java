@@ -85,6 +85,7 @@ public class csgo extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_csgo);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         favteams();
@@ -561,6 +562,7 @@ public class csgo extends AppCompatActivity {
             public void onClick(View v) {
                 teamsAuto.setText("");
                 tex.setText("");
+                searchedWord="";
                 savedLister.setVisibility(View.INVISIBLE);
                 savedItems.clear();
                 saved.setVisibility(View.VISIBLE);
@@ -625,38 +627,72 @@ public class csgo extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         break;
+/*
+                    case "":
+
+
+                        ele = doc.select("div.upcoming-matches");
+                        for(Element date :  ele.select("div.match-day") ) {
+                            for (Element element : date.select("table.table")) {
+
+                                String currentDate = parseDateToddMMyyyy(date.select("span.standard-headline").text());
+
+                                String daysLeft = getDifference(date.select("span.standard-headline").text(), element.select("div.time").text());
+
+                                builder.append("#").append(element.select("div.time").text()).
+                                        append("  -  ").append(element.select("div.team").first().text()).
+                                        append("  vs.  ").append(element.select("div.team").last().text());
+
+                                if (element.select("div.team").last().text().length() > 10 || element.select("div.team").last().text().length() >10) {
+
+
+                                    builder.append(" - ").append("   date:   ").
+                                            append(currentDate).append(" || ").append(daysLeft).append("\n");
+
+                                }else{
+
+                                    builder.append("    -                    ").append("   date:   ").
+                                            append(currentDate).append(" || ").append(daysLeft).append("\n");
+                                }
+                            }
 
 
 
+
+                            }
+
+
+*/
                 }
 
+                    ele = doc.select("div.upcoming-matches");
+                    for (Element date : ele.select("div.match-day")) {
+                        for (Element element : date.select("table.table")) {
 
-                ele = doc.select("div.upcoming-matches");
-                for(Element date :  ele.select("div.match-day") ) {
-                    for (Element element : date.select("table.table")) {
-                        if (element.select("div.team").text().toLowerCase().contains(searchedWord.toLowerCase().trim())) {
-                            String currentDate = parseDateToddMMyyyy(date.select("span.standard-headline").text());
+                            if (element.select("div.team").text().toLowerCase().contains(searchedWord.toLowerCase().trim())) {
+                                String currentDate = parseDateToddMMyyyy(date.select("span.standard-headline").text());
 
-                            String daysLeft = getDifference(date.select("span.standard-headline").text(), element.select("div.time").text());
+                                String daysLeft = getDifference(date.select("span.standard-headline").text(), element.select("div.time").text());
 
-                            builder.append("#").append(element.select("div.time").text()).
-                                    append("  -  ").append(element.select("div.team").first().text()).
-                                    append("  vs.  ").append(element.select("div.team").last().text());
+                                builder.append("#").append(element.select("div.time").text()).
+                                        append("  -  ").append(element.select("div.team").first().text()).
+                                        append("  vs.  ").append(element.select("div.team").last().text());
 
-                            if (element.select("div.team").last().text().length() > 10 || element.select("div.team").last().text().length() >10) {
+                                if (element.select("div.team").last().text().length() > 10 || element.select("div.team").last().text().length() > 10) {
 
 
-                                builder.append(" - ").append("   date:   ").
-                                        append(currentDate).append(" || ").append(daysLeft).append("\n");
+                                    builder.append(" - ").append("   date:   ").
+                                            append(currentDate).append(" || ").append(daysLeft).append("\n");
 
-                            }else{
+                                } else {
 
-                                builder.append("    -                    ").append("   date:   ").
-                                        append(currentDate).append(" || ").append(daysLeft).append("\n");
+                                    builder.append("    -                    ").append("   date:   ").
+                                            append(currentDate).append(" || ").append(daysLeft).append("\n");
+                                }
                             }
                         }
                     }
-                }
+
 
                 runOnUiThread(new Runnable() {
                         @Override
