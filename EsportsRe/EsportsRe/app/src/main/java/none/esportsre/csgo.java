@@ -787,29 +787,37 @@ public class csgo extends AppCompatActivity {
     }
 
     public String parseDateToddMMyyyy(String time) {
-        String inputPattern = "yyyy-MM-dd";
-        String outputPattern = "dd. MMM - yyyy";
-        SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
-        SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
-
-        Date curDate = null;
-        String str = null;
-
-        try {
-            curDate = inputFormat.parse(time);
-            str = outputFormat.format(curDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        String parserIdentifier = "eu";
+        String str = Dateparser(time, parserIdentifier);
         return str;
     }
     public String parseDateToyyyyMMdd(String time) {
-        String inputPattern = "dd. MMM - yyyy";
-        String outputPattern = "yyyy-MM-dd";
+        String parserIdentifier = "na";
+        String str = Dateparser(time, parserIdentifier);
+        return str;
+    }
+
+    public String Dateparser(String time, String parserIdentifier)
+    {
+        String inputPattern = null, outputPattern = null;
+        switch (parserIdentifier)
+        {
+            case "eu":
+                inputPattern = "yyyy-MM-dd";
+                outputPattern = "dd. MMM - yyyy";
+                break;
+            case "na":
+                inputPattern = "dd. MMM - yyyy";
+                outputPattern = "yyyy-MM-dd";
+                break;
+            default:
+                break;
+        }
+
         SimpleDateFormat inputFormat = new SimpleDateFormat(inputPattern);
         SimpleDateFormat outputFormat = new SimpleDateFormat(outputPattern);
 
-        Date curDate = null;
+        Date curDate;
         String str = null;
 
         try {
