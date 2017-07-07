@@ -3,6 +3,7 @@ package none.esportsre;
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Path;
 import android.graphics.drawable.Drawable;
@@ -49,19 +50,17 @@ public class csgo extends AppCompatActivity {
 
     Button btn;
 
-    String searchedWord;
     Button goback;
     Button allBut;
     Button clearBut;
     Button saved;
+    Button recent;
 
+    String searchedWord;
     String getteam1;
     String getteam2;
     String getteam3;
     String getteam4;
-
-
-
 
     TextView tex;
 
@@ -72,7 +71,7 @@ public class csgo extends AppCompatActivity {
     ListView lister;
     ArrayList<String> listItems=new ArrayList<>();
     ArrayAdapter<String> adapter;
-
+    Button events;
     ImageButton ast;
     ImageButton nort;
     ImageButton hero;
@@ -80,90 +79,101 @@ public class csgo extends AppCompatActivity {
     AutoCompleteTextView teamsAuto;
     String[] teamAutoArray;
 
-
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_csgo);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
         favteams();
+
+        events = (Button) findViewById(R.id.eventsButton);
+
+        events.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent eventsIntent = new Intent(csgo.this, csgoEvents.class);
+
+                startActivity(eventsIntent);
+            }
+        });
+
+        recent = (Button) findViewById(R.id.recentResults);
+
+        recent.setVisibility(View.INVISIBLE);
 
         teamsAuto = (AutoCompleteTextView) findViewById(R.id.Search);
         teamAutoArray = getResources().getStringArray(R.array.teamsForAutofill);
 
-        final ArrayAdapter<String> teamAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, teamAutoArray);
+        final ArrayAdapter<String> teamAdapter = new ArrayAdapter<String>
+                (this, R.layout.recent_matches_colors, teamAutoArray);
 
         teamsAuto.setAdapter(teamAdapter);
 
-
-
-        ast = (ImageButton)findViewById(R.id.astralis);
+        ast = (ImageButton) findViewById(R.id.astralis);
         cloud = (ImageButton) findViewById(R.id.cloud9);
         nort = (ImageButton) findViewById(R.id.north);
         hero = (ImageButton) findViewById(R.id.heroic);
 
         String mDrawableName1 = getteam1;
-        if(getteam1.isEmpty()){
+        if (getteam1.isEmpty()) {
             mDrawableName1 = "astralis";
             int resID = getResources().getIdentifier(mDrawableName1, "drawable", getPackageName());
             ast.setBackgroundResource(resID);
 
 
-        }else {
+        } else {
             int resID = getResources().getIdentifier(mDrawableName1, "drawable", getPackageName());
             ast.setBackgroundResource(resID);
         }
         String mDrawableName2 = getteam2;
-        if(getteam2.isEmpty()){
+        if (getteam2.isEmpty()) {
             mDrawableName2 = "north";
             int resID = getResources().getIdentifier(mDrawableName2, "drawable", getPackageName());
             nort.setBackgroundResource(resID);
-        }else {
+        } else {
             int resID = getResources().getIdentifier(mDrawableName2, "drawable", getPackageName());
 
 
             nort.setBackgroundResource(resID);
         }
         String mDrawableName3 = getteam3;
-        if(getteam3.isEmpty()){
+        if (getteam3.isEmpty()) {
             mDrawableName3 = "heroic";
             int resID = getResources().getIdentifier(mDrawableName3, "drawable", getPackageName());
             hero.setBackgroundResource(resID);
-        }else {
+        } else {
             int resID = getResources().getIdentifier(mDrawableName3, "drawable", getPackageName());
 
             hero.setBackgroundResource(resID);
         }
         String mDrawableName4 = getteam4;
-        if(getteam4.isEmpty()){
+        if (getteam4.isEmpty()) {
             mDrawableName4 = "cloud9";
             int resID = getResources().getIdentifier(mDrawableName4, "drawable", getPackageName());
             cloud.setBackgroundResource(resID);
-        }else {
+        } else {
             int resID = getResources().getIdentifier(mDrawableName4, "drawable", getPackageName());
 
             cloud.setBackgroundResource(resID);
         }
 
 
-
         tex = (TextView) findViewById(R.id.textHere);
-        clearBut =(Button)findViewById(R.id.clearMatches);
+        clearBut = (Button) findViewById(R.id.clearMatches);
         clearBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-
-                if(savedAdapter.isEmpty()){
+                if (savedAdapter.isEmpty()) {
 
                     Toast.makeText(getApplicationContext(), "No matches found", Toast.LENGTH_SHORT).show();
-                }else {
 
+                } else {
 
                     AlertDialog.Builder mBuilder = new AlertDialog.Builder(csgo.this);
-                    mBuilder.setMessage("Are you sure you want to clear saved matches?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    mBuilder.setMessage("Are you sure you want to clear saved matches?")
+                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
 
@@ -185,10 +195,7 @@ public class csgo extends AppCompatActivity {
                             nort.setVisibility(View.VISIBLE);
 
                             Toast.makeText(getApplicationContext(), "Matches cleared", Toast.LENGTH_SHORT).show();
-
                             clearMatches();
-
-
                         }
                     }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                         @Override
@@ -201,18 +208,14 @@ public class csgo extends AppCompatActivity {
                     alert.setTitle("Clear matches");
                     alert.show();
 
-
                 }
             }
         });
 
-
-
-
         adapter = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_list_item_1, listItems);
+                R.layout.list, listItems);
         savedAdapter = new ArrayAdapter<>(getApplicationContext(),
-                android.R.layout.simple_list_item_1, savedItems);
+                R.layout.list, savedItems);
 
         savedLister = (ListView) findViewById(R.id.savedList);
         savedLister.setAdapter(savedAdapter);
@@ -221,11 +224,9 @@ public class csgo extends AppCompatActivity {
 
         saved = (Button) findViewById(R.id.savedMatches);
 
-        savedLister.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        savedLister.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View  view, final int position, long id)
-            {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(csgo.this);
                 mBuilder.setMessage("Do you want to be notified?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -233,7 +234,7 @@ public class csgo extends AppCompatActivity {
 
                         String notify[] = savedAdapter.getItem(position).split(":");
 
-                        Toast.makeText(getApplicationContext(), notify[2] , Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), notify[2], Toast.LENGTH_SHORT).show();
 
                     }
                 }).setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -253,6 +254,7 @@ public class csgo extends AppCompatActivity {
         saved.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                recent.setVisibility(View.INVISIBLE);
                 saved.setVisibility(View.INVISIBLE);
                 clearBut.setVisibility(View.VISIBLE);
                 savedLister.setVisibility(View.VISIBLE);
@@ -283,7 +285,7 @@ public class csgo extends AppCompatActivity {
                             String message;
 
 
-                            while ((message=bfr.readLine())!=null) {
+                            while ((message = bfr.readLine()) != null) {
                                 strBuild.append(message);
 
                             }
@@ -297,21 +299,21 @@ public class csgo extends AppCompatActivity {
                             @Override
                             public void run() {
 
-                               String[] str = strBuild.toString().split("#");
+                                String[] str = strBuild.toString().split("#");
                                 String[] strB = new String[str.length];
 
 
-                                   for(int a = 1; a <= str.length-1; a++){
+                                for (int a = 1; a <= str.length - 1; a++) {
 
-                                        strB[a] = getDifference(parseDateToyyyyMMdd(str[a].split(":")[2]), str[a].substring(0, 5));
+                                    strB[a] = getDifference(parseDateToyyyyMMdd(str[a].split(":")[2]), str[a].substring(0, 5));
 
-                                   }
+
+                                }
 
                                 for (int z = 0; z < str.length; z++) {
-                                        savedItems.add(str[z]+" || "+strB[z]);
-                                        savedAdapter.notifyDataSetChanged();
-                                    }
-
+                                    savedItems.add(str[z] + " || " + strB[z]);
+                                    savedAdapter.notifyDataSetChanged();
+                                }
 
                                 savedItems.remove(0);
 
@@ -319,11 +321,9 @@ public class csgo extends AppCompatActivity {
                                     @Override
                                     public int compare(String s, String t1) {
 
-
                                         return 0;
                                     }
                                 });
-
 
                             }
                         });
@@ -338,13 +338,10 @@ public class csgo extends AppCompatActivity {
         lister = (ListView) findViewById(R.id.ListerID);
 
 
-
         lister.setAdapter(adapter);
-        lister.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        lister.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View  view, final int position, final long id)
-            {
+            public void onItemClick(AdapterView<?> parent, View view, final int position, final long id) {
                 AlertDialog.Builder mBuilder = new AlertDialog.Builder(csgo.this);
                 mBuilder.setMessage("Do you want to be notified about this match?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
@@ -363,11 +360,9 @@ public class csgo extends AppCompatActivity {
                             String message;
 
 
-                            while ((message=bfr.readLine())!=null) {
+                            while ((message = bfr.readLine()) != null) {
                                 crossChecker.append(message);
-
                             }
-
 
                         } catch (IOException e) {
 
@@ -377,23 +372,19 @@ public class csgo extends AppCompatActivity {
                         String[] str = crossChecker.toString().split("#");
 
 
-
                         for (int z = 0; z < str.length; z++) {
 
 
-                           if (str[z].regionMatches(1,adapter.getItem(position),2, 20)){
-                               CheckIfMatchSavedAlready = 1;
-                               break;
-                           }
+                            if (str[z].regionMatches(1, adapter.getItem(position), 2, 20)) {
+                                CheckIfMatchSavedAlready = 1;
+                                break;
+                            }
                         }
 
-                        if (CheckIfMatchSavedAlready==1){
-
-
+                        if (CheckIfMatchSavedAlready == 1) {
 
                             Toast.makeText(getApplicationContext(), "Match is already saved", Toast.LENGTH_SHORT).show();
-                        }
-                        else {
+                        } else {
                             Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
                             saveMatch(adapter.getItem(position));
 
@@ -423,10 +414,21 @@ public class csgo extends AppCompatActivity {
 
         allBut = (Button) findViewById(R.id.allMatches);
 
+
+        recent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent recentMatches = new Intent(csgo.this, csgoResults.class);
+                recentMatches.putExtra("team", searchedWord);
+                startActivity(recentMatches);
+
+            }
+        });
+
         allBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                recent.setVisibility(View.VISIBLE);
                 btn.setVisibility(View.INVISIBLE);
                 lister.setVisibility(View.VISIBLE);
                 teamsAuto.setVisibility(View.INVISIBLE);
@@ -436,7 +438,7 @@ public class csgo extends AppCompatActivity {
                 cloud.setVisibility(View.INVISIBLE);
                 nort.setVisibility(View.INVISIBLE);
                 allBut.setVisibility(View.INVISIBLE);
-                searchedWord ="aidsidasdiafjksjddksjaldkjasdhusdyhuah";
+                searchedWord = "aidsidasdiafjksjddksjaldkjasdhusdyhuaha";
                 getData();
             }
         });
@@ -445,9 +447,9 @@ public class csgo extends AppCompatActivity {
         ast.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getteam1.isEmpty()){
-                    searchedWord="astralis";
-                }else {
+                if (getteam1.isEmpty()) {
+                    searchedWord = "astralis";
+                } else {
                     searchedWord = getteam1;
                 }
                 lister.setVisibility(View.VISIBLE);
@@ -458,7 +460,7 @@ public class csgo extends AppCompatActivity {
                 cloud.setVisibility(View.INVISIBLE);
                 hero.setVisibility(View.INVISIBLE);
                 nort.setVisibility(View.INVISIBLE);
-
+                recent.setVisibility(View.VISIBLE);
                 allBut.setVisibility(View.INVISIBLE);
                 getData();
             }
@@ -467,9 +469,9 @@ public class csgo extends AppCompatActivity {
         nort.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getteam1.isEmpty()){
-                    searchedWord="north";
-                }else {
+                if (getteam1.isEmpty()) {
+                    searchedWord = "north";
+                } else {
                     searchedWord = getteam2;
                 }
 
@@ -482,7 +484,7 @@ public class csgo extends AppCompatActivity {
                 cloud.setVisibility(View.INVISIBLE);
                 hero.setVisibility(View.INVISIBLE);
                 nort.setVisibility(View.INVISIBLE);
-
+                recent.setVisibility(View.VISIBLE);
                 allBut.setVisibility(View.INVISIBLE);
                 getData();
             }
@@ -491,9 +493,9 @@ public class csgo extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(getteam1.isEmpty()){
-                    searchedWord="heroic";
-                }else {
+                if (getteam1.isEmpty()) {
+                    searchedWord = "heroic";
+                } else {
 
                     searchedWord = getteam3;
                 }
@@ -505,7 +507,7 @@ public class csgo extends AppCompatActivity {
                 cloud.setVisibility(View.INVISIBLE);
                 hero.setVisibility(View.INVISIBLE);
                 nort.setVisibility(View.INVISIBLE);
-
+                recent.setVisibility(View.VISIBLE);
                 allBut.setVisibility(View.INVISIBLE);
                 getData();
             }
@@ -513,9 +515,9 @@ public class csgo extends AppCompatActivity {
         cloud.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getteam1.isEmpty()){
-                    searchedWord="cloud9";
-                }else {
+                if (getteam1.isEmpty()) {
+                    searchedWord = "cloud9";
+                } else {
                     searchedWord = getteam4;
                 }
 
@@ -527,7 +529,7 @@ public class csgo extends AppCompatActivity {
                 cloud.setVisibility(View.INVISIBLE);
                 hero.setVisibility(View.INVISIBLE);
                 nort.setVisibility(View.INVISIBLE);
-
+                recent.setVisibility(View.VISIBLE);
                 allBut.setVisibility(View.INVISIBLE);
                 getData();
             }
@@ -556,6 +558,7 @@ public class csgo extends AppCompatActivity {
                     nort.setVisibility(View.INVISIBLE);
                     ast.setVisibility(View.INVISIBLE);
                     allBut.setVisibility(View.INVISIBLE);
+                    recent.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -565,7 +568,7 @@ public class csgo extends AppCompatActivity {
             public void onClick(View v) {
                 teamsAuto.setText("");
                 tex.setText("");
-                searchedWord="";
+                searchedWord = "";
                 savedLister.setVisibility(View.INVISIBLE);
                 savedItems.clear();
                 saved.setVisibility(View.VISIBLE);
@@ -580,9 +583,34 @@ public class csgo extends AppCompatActivity {
                 cloud.setVisibility(View.VISIBLE);
                 hero.setVisibility(View.VISIBLE);
                 nort.setVisibility(View.VISIBLE);
+                recent.setVisibility(View.INVISIBLE);
             }
         });
+
+        Intent intent = getIntent();
+
+        Bundle extras = intent.getExtras();
+        if (extras != null) {
+
+
+            searchedWord = intent.getStringExtra("savedSearchedWord");
+            getData();
+            btn.setVisibility(View.INVISIBLE);
+            teamsAuto.setVisibility(View.INVISIBLE);
+            goback.setVisibility(View.VISIBLE);
+            teamsAuto.setText("");
+            lister.setVisibility(View.VISIBLE);
+            cloud.setVisibility(View.INVISIBLE);
+            hero.setVisibility(View.INVISIBLE);
+            nort.setVisibility(View.INVISIBLE);
+            ast.setVisibility(View.INVISIBLE);
+            allBut.setVisibility(View.INVISIBLE);
+            recent.setVisibility(View.VISIBLE);
+
+
+        }
     }
+
 
 
 
@@ -630,16 +658,25 @@ public class csgo extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         break;
+
+                    case "fnatic":
+
+                        try {
+                            doc = Jsoup.connect("https://www.hltv.org/matches?team=4991").get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
                     case "aidsidasdiafjksjddksjaldkjasdhusdyhuaha":
 
                         ele = doc.select("div.upcoming-matches");
                         for (Element date : ele.select("div.match-day")) {
                             for (Element element : date.select("table.table")) {
 
-                                if (element.select("div.team").text().toLowerCase().contains(getteam1.toLowerCase().trim())
-                                        ||element.select("div.team").text().toLowerCase().contains(getteam2.toLowerCase().trim())
-                                        || element.select("div.team").text().toLowerCase().contains(getteam3.toLowerCase().trim())
-                                        || element.select("div.team").text().toLowerCase().contains(getteam4.toLowerCase().trim())  ) {
+                                if (element.select("div.team").text().toLowerCase().equals(getteam1.toLowerCase())
+                                        ||element.select("div.team").text().toLowerCase().equals(getteam2.toLowerCase())
+                                        || element.select("div.team").text().toLowerCase().equals(getteam3.toLowerCase())
+                                        || element.select("div.team").text().toLowerCase().equals(getteam4.toLowerCase())  ) {
                                     String currentDate = parseDateToddMMyyyy(date.select("span.standard-headline").text());
 
                                     String daysLeft = getDifference(date.select("span.standard-headline").text(), element.select("div.time").text());
@@ -656,7 +693,7 @@ public class csgo extends AppCompatActivity {
 
                                     } else {
 
-                                        builder.append("    -                         ").append("   date:   ").
+                                        builder.append("    -                                ").append("   date:   ").
                                                 append(currentDate).append(" || ").append(daysLeft).append("\n");
                                     }
 
@@ -664,67 +701,32 @@ public class csgo extends AppCompatActivity {
                             }
                         }
 
-
-/*
-                    case "":
-
-
-                        ele = doc.select("div.upcoming-matches");
-                        for(Element date :  ele.select("div.match-day") ) {
-                            for (Element element : date.select("table.table")) {
-
-                                String currentDate = parseDateToddMMyyyy(date.select("span.standard-headline").text());
-
-                                String daysLeft = getDifference(date.select("span.standard-headline").text(), element.select("div.time").text());
-
-                                builder.append("#").append(element.select("div.time").text()).
-                                        append("  -  ").append(element.select("div.team").first().text()).
-                                        append("  vs.  ").append(element.select("div.team").last().text());
-
-                                if (element.select("div.team").last().text().length() > 10 || element.select("div.team").last().text().length() >10) {
-
-
-                                    builder.append(" - ").append("   date:   ").
-                                            append(currentDate).append(" || ").append(daysLeft).append("\n");
-
-                                }else{
-
-                                    builder.append("    -                    ").append("   date:   ").
-                                            append(currentDate).append(" || ").append(daysLeft).append("\n");
-                                }
-                            }
-
-
-
-
-                            }
-
-
-*/
                 }
 
                     ele = doc.select("div.upcoming-matches");
                     for (Element date : ele.select("div.match-day")) {
                         for (Element element : date.select("table.table")) {
 
-                            if (element.select("div.team").text().toLowerCase().contains(searchedWord.toLowerCase().trim())) {
+                            if (element.select("div.team").text().toLowerCase().contains(searchedWord.toLowerCase())) {
                                 String currentDate = parseDateToddMMyyyy(date.select("span.standard-headline").text());
 
                                 String daysLeft = getDifference(date.select("span.standard-headline").text(), element.select("div.time").text());
+
+                                int leng = element.select("div.team").first().text().length() + element.select("div.team").last().text().length();
 
                                 builder.append("#").append(element.select("div.time").text()).
                                         append("  -  ").append(element.select("div.team").first().text()).
                                         append("  vs.  ").append(element.select("div.team").last().text());
 
-                                if (element.select("div.team").last().text().length() > 10 || element.select("div.team").last().text().length() > 10) {
+                                if (leng > 32) {
 
 
-                                    builder.append(" - ").append("   date:   ").
+                                    builder.append("   - ").append("   date:   ").
                                             append(currentDate).append(" || ").append(daysLeft).append("\n");
 
                                 } else {
 
-                                    builder.append("    -                         ").append("   date:   ").
+                                    builder.append("   -                                ").append("   date:   ").
                                             append(currentDate).append(" || ").append(daysLeft).append("\n");
                                 }
                             }
@@ -823,7 +825,7 @@ public class csgo extends AppCompatActivity {
     }
 
 
-    public String getDifference(String Date, String Clock){
+    public String getDifference(String Date, String Clock) {
 
         String[] newDate = Date.split("-");
 
@@ -839,15 +841,18 @@ public class csgo extends AppCompatActivity {
         Period period = new Period(startDate, endDate);
 
 
-
         PeriodFormatter formatter = new PeriodFormatterBuilder()
 
                 .appendDays().appendSuffix(" day ", " d ")
                 .appendHours().appendSuffix(" hour ", " h ")
                 .toFormatter();
 
+        if (period.getHours() > 0) {
 
-    return formatter.print(period);
+            return formatter.print(period);
+        }else{
+            return "Match already played";
+        }
     }
 
     public void favteams(){
@@ -860,7 +865,3 @@ public class csgo extends AppCompatActivity {
     }
 
 }
-
-
-
-

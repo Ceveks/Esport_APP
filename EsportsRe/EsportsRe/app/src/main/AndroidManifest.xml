@@ -18,31 +18,44 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-
         <activity
             android:name=".csgo"
-            android:label="Counter Strike"
-            android:parentActivityName=".main" >
+            android:label="Counter-Strike"
+            android:parentActivityName=".main">
+
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".main" />
         </activity>
-
         <activity android:name=".lol" />
 
         <receiver android:name=".MyBroadcastReceiver" />
 
-        <activity android:name=".settings"
+        <activity
+            android:name=".settings"
             android:label="Settings"
             android:parentActivityName=".main">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main"/>
+                android:value=".main" />
         </activity>
+        <activity
+            android:name=".csgoResults"
+            android:label="Recent results"
+            android:parentActivityName=".csgo">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".csgo" />
 
+        </activity>
+        <activity android:name=".csgoEvents"
+            android:label="Events"
+            android:parentActivityName=".csgo">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".csgo" />
+            </activity>
     </application>
 
 </manifest>

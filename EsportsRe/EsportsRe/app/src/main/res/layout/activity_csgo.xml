@@ -6,23 +6,59 @@
     android:layout_height="match_parent"
     tools:context="none.esportsre.csgo">
 
-    <Button
-        android:id="@+id/clearMatches"
-        style="@style/Widget.AppCompat.Button.Borderless"
+    <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Clear all"
+        tools:layout_editor_absoluteY="8dp"
         tools:layout_editor_absoluteX="8dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:columnCount="3"
+        android:rowCount="1">
 
-    <Button
-        android:id="@+id/savedMatches"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
-        android:layout_height="48dp"
-        android:text="saved matches"
-        tools:layout_editor_absoluteX="2dp"
-        tools:layout_editor_absoluteY="16dp" />
+        <Button
+            android:id="@+id/savedMatches"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="saved matches"
+
+            android:layout_row="0"
+            android:layout_column="0"/>
+
+        <Button
+            android:id="@+id/recentResults"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:text="Recent results"
+
+            android:layout_column="1"
+            android:layout_row="0"/>
+
+        <Button
+            android:id="@+id/eventsButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
+            android:text="Events"
+            android:layout_column="2"
+            android:layout_row="0"/>
+
+
+        <Button
+            android:id="@+id/clearMatches"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Clear all"
+            android:layout_row="0"
+            android:layout_column="0"
+
+             />
+    </GridLayout>
 
     <RelativeLayout
         android:id="@+id/RELATIVElayout"
@@ -173,7 +209,7 @@
             android:layout_alignTop="@+id/dataGetter"
             android:layout_marginTop="30dp"
 
-            android:background="@android:color/holo_blue_dark" />
+            android:background="@android:color/transparent" />
 
         <ListView
             android:id="@+id/savedList"
@@ -184,7 +220,7 @@
             android:layout_alignTop="@+id/dataGetter"
             android:layout_marginTop="30dp"
 
-            android:background="@android:color/holo_blue_dark" />
+            android:background="@android:color/transparent" />
 
     </RelativeLayout>
 

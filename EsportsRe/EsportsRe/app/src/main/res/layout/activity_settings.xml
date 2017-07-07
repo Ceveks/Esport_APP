@@ -66,6 +66,13 @@
             android:text="NiP" />
 
         <CheckBox
+            android:id="@+id/flipsid3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Flipsid3"
+            android:onClick="selectItem"/>
+
+        <CheckBox
             android:id="@+id/navi"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

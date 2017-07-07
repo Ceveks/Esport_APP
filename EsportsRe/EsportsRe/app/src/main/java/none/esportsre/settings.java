@@ -33,6 +33,7 @@ public class settings extends AppCompatActivity {
     CheckBox g2;
     CheckBox heroic;
     Button save;
+    CheckBox flip;
 
     ArrayList<String> selected = new ArrayList<>();
 
@@ -57,6 +58,7 @@ public class settings extends AppCompatActivity {
         g2 = (CheckBox) findViewById(R.id.g2);
         heroic = (CheckBox) findViewById(R.id.heroicCheck);
         save = (Button) findViewById(R.id.saveButt);
+        flip = (CheckBox) findViewById(R.id.flipsid3);
 
 
 
@@ -120,6 +122,9 @@ public class settings extends AppCompatActivity {
                     }
                     if(heroic.isChecked()){
                         heroic.toggle();
+                    }
+                    if(flip.isChecked()){
+                        flip.toggle();
                     }
 
 
@@ -275,6 +280,16 @@ public class settings extends AppCompatActivity {
                     }
                     else{
                         selected.remove("heroic");
+                    }
+                    break;
+
+                case R.id.flipsid3:
+
+                    if(checked) {
+                        selected.add("flipsid3");
+                    }
+                    else{
+                        selected.remove("flipsid3");
                     }
                     break;
 
