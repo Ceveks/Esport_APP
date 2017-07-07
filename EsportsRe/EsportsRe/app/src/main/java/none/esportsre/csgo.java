@@ -788,13 +788,11 @@ public class csgo extends AppCompatActivity {
 
     public String parseDateToddMMyyyy(String time) {
         String parserIdentifier = "eu";
-        String str = Dateparser(time, parserIdentifier);
-        return str;
+        return Dateparser(time, parserIdentifier);
     }
     public String parseDateToyyyyMMdd(String time) {
         String parserIdentifier = "na";
-        String str = Dateparser(time, parserIdentifier);
-        return str;
+        return Dateparser(time, parserIdentifier);
     }
 
     public String Dateparser(String time, String parserIdentifier)
