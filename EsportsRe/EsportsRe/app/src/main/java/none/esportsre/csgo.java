@@ -435,7 +435,6 @@ public class csgo extends AppCompatActivity {
                 cloud.setVisibility(View.INVISIBLE);
                 nort.setVisibility(View.INVISIBLE);
                 allBut.setVisibility(View.INVISIBLE);
-                searchedWord = "aidsidasdiafjksjddksjaldkjasdhusdyhuaha";
                 getData();
             }
         });
@@ -609,8 +608,6 @@ public class csgo extends AppCompatActivity {
     }
 
 
-
-
     private void getData(){
 
         new Thread(new Runnable() {
@@ -664,7 +661,7 @@ public class csgo extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         break;
-                    case "aidsidasdiafjksjddksjaldkjasdhusdyhuaha":
+                    default:
 
                         ele = doc.select("div.upcoming-matches");
                         for (Element date : ele.select("div.match-day")) {
@@ -697,7 +694,7 @@ public class csgo extends AppCompatActivity {
                                 }
                             }
                         }
-
+                    break;
                 }
 
                     ele = doc.select("div.upcoming-matches");
