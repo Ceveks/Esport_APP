@@ -30,6 +30,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class csgoEvents extends AppCompatActivity {
+
+    //Global variabler
     String getteam1, getteam2, getteam3, getteam4;
 
     ListView ongoing;
@@ -42,8 +44,10 @@ public class csgoEvents extends AppCompatActivity {
     StateVO sel;
     TextView noOnFound;
 
+    //Holder links til hver event fra upcomingEvents
     String[] upComingBracketHolder = new String[100];
 
+    //Holder link til nuværende event
     String onGoingBracketHolder;
 
 
@@ -53,18 +57,24 @@ public class csgoEvents extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //Laver en back button på siden med parent: csgo
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_csgo_events);
+
+        //Henter data fra lokal fil om de nuværende "Favorite teams"
         favteams();
-        sorter = (Button) findViewById(R.id.sortForFav);
-        sel = new StateVO();
+
         noOnFound = (TextView) findViewById(R.id.noOngoingFound);
+        sorter = (Button) findViewById(R.id.sortForFav);
+
+        //Ikke i brug
+        sel = new StateVO();
 
         sorter.setEnabled(false);
 
 
 
-
+        //Ikke i brug
         sorter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,17 +85,15 @@ public class csgoEvents extends AppCompatActivity {
 
                 upcomingEventsWithFavoriteTeams();
 
-
-
             }
         });
 
+        //Drop-down menu med favorite teams (Har ikke nogen funktion lige pt.)
         final String[] select_qualification = { "teams",
                 getteam1, getteam2, getteam3, getteam4};
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
 
         ArrayList<StateVO> listVOs = new ArrayList<>();
-
         for(int i = 0; i < select_qualification.length; i++) {
             StateVO stateVO = new StateVO();
             stateVO.setTitle(select_qualification[i]);
@@ -98,7 +106,7 @@ public class csgoEvents extends AppCompatActivity {
 
 
 
-
+        //Set-up til de to lists ongoing og upcoming
 
         onAdapter = new ArrayAdapter<>(csgoEvents.this,
                 R.layout.list, onList);
@@ -121,7 +129,7 @@ public class csgoEvents extends AppCompatActivity {
 
 
 
-
+        //Hvis man klikker på et item i upcoming listen
 
         upcoming.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -131,6 +139,7 @@ public class csgoEvents extends AppCompatActivity {
 
             }
         });
+        //Hvis man klikker på et item i ongoing listen
 
         ongoing.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -147,7 +156,7 @@ public class csgoEvents extends AppCompatActivity {
 
 
 
-
+    //Hvis et item i ongoing listen er klikket
     private void onGoingEventsBracketAndGroups(final String linkToPage) {
 
         new Thread(new Runnable() {
@@ -156,10 +165,12 @@ public class csgoEvents extends AppCompatActivity {
                 final StringBuilder allTeams = new StringBuilder();
                 Document doc = null;
                 try {
+                    //Connect til det pågældendes event's link
                     doc = Jsoup.connect(linkToPage).get();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                //Hent navnet på eventet til titlen i dialog boksen
                 final Element nameOfEvent = doc.select("div.eventname").first();
 
 
@@ -170,11 +181,19 @@ public class csgoEvents extends AppCompatActivity {
                 Elements teamsAttending = doc.select("div.teams-attending.grid");
                 for(Element teams : teamsAttending.select("div.team-name")){
 
-                    allTeams.append(teams.select("div.text").text()).append("\n");
+                    //Se hvis holdnavnet har et punktum, hvis det er tilfældet kør removeDot
+
+                    if(teams.select("div.text").text().contains(".")){
+                        allTeams.append(removeDot(teams.select("div.text").text())).append("\n");
+                    }else {
+                        allTeams.append(teams.select("div.text").text()).append("\n");
+                    }
+
+
 
                 }
 
-
+                //Start en AlertDialog (Pop-up vindue)
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -193,6 +212,8 @@ public class csgoEvents extends AppCompatActivity {
                         AlertDialog alert = mBuilder.create();
                         alert.setTitle(nameOfEvent.text());
                         alert.show();
+
+                        //Lav link i dialog boksen
                         Linkify.addLinks((TextView) alert.findViewById(android.R.id.message), Linkify.ALL);
 
 
@@ -206,6 +227,7 @@ public class csgoEvents extends AppCompatActivity {
 
     }
 
+    //Hvis et item upcoming listen er klikket
     private void upComingEventsBracketsOrGroups(final String linkToPage) {
 
         new Thread(new Runnable() {
@@ -218,6 +240,7 @@ public class csgoEvents extends AppCompatActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                //Hent navnet på eventet til titlen i dialog boksen
                 final Element nameOfEvent = doc.select("div.eventname").first();
 
 
@@ -228,7 +251,13 @@ public class csgoEvents extends AppCompatActivity {
                 Elements teamsAttending = doc.select("div.teams-attending.grid");
                for(Element teams : teamsAttending.select("div.team-name")){
 
-                   allTeams.append(teams.select("div.text").text()).append("\n");
+
+                   if(teams.select("div.text").text().contains(".")){
+                       allTeams.append(removeDot(teams.select("div.text").text())).append("\n");
+                   }else {
+                       allTeams.append(teams.select("div.text").text()).append("\n");
+                   }
+
 
                }
 
@@ -269,7 +298,7 @@ public class csgoEvents extends AppCompatActivity {
 
 
 
-
+    //Knappen er ikke i brug så denne bliver ikke kørt
     private void onGoingEventsWithFavoriteTeams() {
 
 
@@ -390,7 +419,7 @@ public class csgoEvents extends AppCompatActivity {
         }).start();
 
     }
-
+    //Knappen er ikke i brug så denne bliver ikke kørt
     private void upcomingEventsWithFavoriteTeams() {
 
         new Thread(new Runnable() {
@@ -506,7 +535,7 @@ public class csgoEvents extends AppCompatActivity {
 
 
 
-
+    //Data til listen ongoing events
     private void onGoingEvents() {
 
         new Thread(new Runnable() {
@@ -525,9 +554,8 @@ public class csgoEvents extends AppCompatActivity {
                 }
 
 
-
+                //Sætter det første url i denne div til det nuværende event's link
                 Elements ele;
-                Elements url;
                 Element newUrl;
                 ele = doc.select("div.ongoing-events-holder");
                 newUrl = ele.select("a").first();
@@ -535,6 +563,8 @@ public class csgoEvents extends AppCompatActivity {
 
 
                 for (Element big : ele.select("div.big-event-info")) {
+
+                    //Henter data fra en table med denne metode
                     for (Element table : big.select("table.table")) {
                         for (Element row : table.select("tr")) {
                             Elements tds = row.select("td");
@@ -543,7 +573,7 @@ public class csgoEvents extends AppCompatActivity {
 
                         }
                     }
-
+                    //Henter hold navne til "Top teams"
                     for (Element teams : big.select("div.top-team-logos")) {
                         for (Element img : teams.select("img")) {
 
@@ -551,17 +581,19 @@ public class csgoEvents extends AppCompatActivity {
                         }
                     }
 
-
+                    //Sætter holdnavnene ind i et array
                     String[] b3String = builder3.toString().split("-");
 
 
 
-
+                    //Sætter data fra tabelen ind i et array
                     String[] b2String = builder2.toString().split(":");
+
+                    //Gør plads til næste event
 
                     builder2.delete(0, builder2.length());
 
-
+                    //Bygger event string
                     builder.append(big.select("div.big-event-name").text()).append("\n")
                             .append("Prize pool:  ")
                             .append(b2String[2]).append("\n").
@@ -569,7 +601,9 @@ public class csgoEvents extends AppCompatActivity {
                             append(big.select("span.big-event-location").text()).append("\n").
                             append("Date:  ").
                             append(b2String[1]).append("\n").append("Top teams:  ");
-                    //.append(builder3.toString())
+
+                    //Sætter holdnavne ind, kun sæt et " - " ind hvis der er flere hold.
+                    //Undgår der ikke står e.g. NiP - Virtuspro - North -
                     for(int x=0; x<b3String.length; x++) {
                         builder.append(b3String[x]);
                         if (x<b3String.length-1) {
@@ -577,6 +611,7 @@ public class csgoEvents extends AppCompatActivity {
 
                         }
                     }
+                    //Hvis der er ikke er nogen Top teams
                     if (builder3.toString().isEmpty()){
 
                         builder.append("To be announced");
@@ -584,6 +619,7 @@ public class csgoEvents extends AppCompatActivity {
 
                     builder.append("#");
 
+                    //Gør plads til næste event
                     builder3.delete(0, builder3.length());
 
                 }
@@ -591,7 +627,7 @@ public class csgoEvents extends AppCompatActivity {
 
 
 
-
+                //Kør GUI
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -623,7 +659,7 @@ public class csgoEvents extends AppCompatActivity {
     }
 
 
-
+    //Data i upcoming events listen  (Det samme om onGoingEvents)
     private void upcomingEvents() {
 
         new Thread(new Runnable() {
@@ -692,7 +728,7 @@ public class csgoEvents extends AppCompatActivity {
                                 append(big.select("span.big-event-location").text()).append("\n").
                                 append("Date:  ").
                                 append(b2String[1]).append("\n").append("Top teams:  ");
-                                //.append(builder3.toString())
+
                         for(int x=0; x<b3String.length; x++) {
                             builder.append(b3String[x]);
                             if (x<b3String.length-1) {
@@ -714,11 +750,11 @@ public class csgoEvents extends AppCompatActivity {
 
 
 
-
+                //Kør GUI
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-
+                        //Hvis string er tom
                         if(builder.length() == 0){
 
                             Toast.makeText(csgoEvents.this, "No upcoming events found", Toast.LENGTH_SHORT).show();
@@ -744,6 +780,7 @@ public class csgoEvents extends AppCompatActivity {
         }).start();
 
     }
+    //Hent favorit hold
     public void favteams(){
         SharedPreferences teams = getSharedPreferences("favteams", Context.MODE_PRIVATE);
         getteam1 = teams.getString("team1", "");
@@ -752,6 +789,12 @@ public class csgoEvents extends AppCompatActivity {
         getteam4 = teams.getString("team4", "");
 
     }
+    //Fjern punktum fra holdnavn
+    public String removeDot(String teamNameWithDot){
+
+        String teamNameWithoutDot= teamNameWithDot.replace(".", "");
+
+    return teamNameWithoutDot;}
 
 
 }

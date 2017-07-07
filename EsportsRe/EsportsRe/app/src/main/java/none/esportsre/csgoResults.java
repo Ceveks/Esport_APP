@@ -21,6 +21,8 @@ import java.util.ArrayList;
 
 public class csgoResults extends AppCompatActivity {
 
+    //GLOBAL VARIABLER
+
     ListView recentLister;
     ArrayList<String> recentItems=new ArrayList<>();
     ArrayAdapter<String> recentAdapter;
@@ -33,8 +35,9 @@ public class csgoResults extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
+        //Laver en back button på denne side
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_csgo_results);
         changeColor = (TextView) findViewById(R.id.changeColorsOfListViewItems);
@@ -51,24 +54,25 @@ public class csgoResults extends AppCompatActivity {
                 startActivity(csgo);
             }
         });
-
+        //Henter det holdnavn der er blevet søgt fra når man trykker på "Recent result" på csgo siden.
         Intent intent = getIntent();
         searchedWord = intent.getStringExtra("team");
         recentAdapter = new ArrayAdapter<String>(getApplicationContext(), R.layout.recent_matches_colors, recentItems);
         recentLister.setAdapter(recentAdapter);
-
+        //Bruger dette holdnavn som parameter  i getData
         getData(searchedWord);
 
     }
 
 
     private void getData(final String teamName) {
-
+        //Kører to threads for at kunne opdatere GUI samtidig.
         new Thread(new Runnable() {
             @Override
             public void run() {
                 final StringBuilder builder = new StringBuilder();
 
+                //Sætter hjemmesidenavnet der skal bruges, hvis det er et ukendt holdnavn, tager bare main siden.
 
                 Document doc = null;
                 try {
@@ -77,6 +81,8 @@ public class csgoResults extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 String toLowerCase = teamName.toLowerCase();
+
+                //Se om det søgte navn matcher nogen af disse:
 
                 switch (toLowerCase) {
                     case "sk":
@@ -220,32 +226,46 @@ public class csgoResults extends AppCompatActivity {
 
                 }
                 Elements ele;
+                //Vælger den <div> med class navnet: results-all
                 ele = doc.select("div.results-all");
 
 
 
-                int alignRight = 50;
-                
+               //Kig igennem "results-all" efter divs med class navnet: results-sublist
+
 
                     for (Element date : ele.select("div.results-sublist")) {
                         
-
+                        //Inde i hver div.results-sublist kig efter en div med class navnet: result
                         for (Element element : date.select("div.result")) {
+
+                                //Tag længden af scoren
                                 int leng = element.select("td.result-score").text().length();
+
+
+                            /*
                             String test = element.select("div.team").first().text() + "   " +
                                     element.select("td.result-score").text() + "   " +
                                     element.select("div.team").last().text();
+                                    */
 
 
-
+                            //Laver to strings første og anden resultat, sub bliver lavet ved hjælp af substring
+                            //e.g. 16 - 4, så tager den fra første index til indekset af "-", og bruger .trim() for at fjerne whitespace
                             String firstResultInString = element.select("td.result-score").text()
                                     .substring(0,element.select("td.result-score").text().indexOf("-")).trim();
                             String secondResultInString = element.select("td.result-score").text()
                                     .substring(element.select("td.result-score").text().indexOf("-")+1, leng).trim();
 
+                            //Parser begge strings til ints
                             int firstResult = Integer.parseInt(firstResultInString);
                             int secondResult = Integer.parseInt(secondResultInString);
+
+
+                            //Laver en bool for at se om det er et win
                             boolean lOrW = false;
+
+                            //Tjek om første resultat er større end andet, og om holdnavnet matcher det første holdnavn.
                             if (firstResult > secondResult && element.select("div.team").first().text().toLowerCase().contains(toLowerCase)) {
                                 /*
                                 for(int x=0; x<=alignRight-test.length(); x++) {
@@ -257,12 +277,13 @@ public class csgoResults extends AppCompatActivity {
                                 lOrW =true;
 
                             }
+                            //Tjek om første andet er større end første, og om holdnavnet matcher det sidste hold navn.
                             if (firstResult < secondResult && element.select("div.team").last().text().toLowerCase().contains(toLowerCase)) {
 
                                     builder.append("W  -  ");
                                 lOrW=true;
                                 }
-
+                            //Hvis ikke så bliver der skrevet et L
                                 if (lOrW==false){
 
                                     builder.append("L   -  ");
@@ -270,39 +291,36 @@ public class csgoResults extends AppCompatActivity {
 
 
 
-
+                            //Bygger den string der skal sættes ind i listen
                                 builder.append(date.select("div.standard-headline").text()).append(element.select("div.team").first().text()).append("   ").
                                         append(element.select("td.result-score").text()).append("   ").
                                         append(element.select("div.team").last().text()).append("  -  ").append(element.select("td.event").text());
 
 
-                            int bLeng = leng +
+
+                           /* int bLeng = leng +
                                     element.select("div.team").first().text().length() +
                                     element.select("div.team").last().text().length();
+*/
 
-
+                           //Sætter et linjeskift ind
                                 builder.append("\n");
 
                         }
                     }
-
+                //Kører GUI
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
-
+                        //Laver et array med den string fra før og splitter den ved linjeskift
                             String[] teams = builder.toString().split("\n");
                         
                       //  tester.setText(.toString());
                             
-
+                            //Sætter data ind i GUI'en
                             for (int y = 0; y < teams.length; y++) {
-                                        /*
-                                        if(teams[y].endsWith("W")){
 
-
-                                        }
-*/      
                                         recentItems.add(teams[y]);
 
                                         recentAdapter.notifyDataSetChanged();
