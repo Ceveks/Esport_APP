@@ -21,7 +21,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.joda.time.Chronology;
 import org.joda.time.DateTime;
+import org.joda.time.Duration;
+import org.joda.time.LocalDateTime;
 import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
@@ -828,25 +831,25 @@ public class csgo extends AppCompatActivity {
     public String getDifference(String Date, String Clock) {
 
         String[] newDate = Date.split("-");
-
         String[] newClock = Clock.split(":");
-        int ho = Integer.parseInt(newClock[0]);
-        int mi = Integer.parseInt(newClock[1]);
-        int ye = Integer.parseInt(newDate[0]);
-        int da = Integer.parseInt(newDate[1]);
-        int mo = Integer.parseInt(newDate[2]);
+
+        int years = Integer.parseInt(newDate[0]);
+        int months = Integer.parseInt(newDate[2]);
+        int days = Integer.parseInt(newDate[1]);
+        int hours = Integer.parseInt(newClock[0]);
+        int minutes = Integer.parseInt(newClock[1]);
+
         DateTime startDate = DateTime.now();
-        DateTime endDate = new DateTime(ye, da, mo, ho, mi);
+        DateTime endDate = new DateTime(years, days, months, hours, minutes);
 
         Period period = new Period(startDate, endDate);
 
 
         PeriodFormatter formatter = new PeriodFormatterBuilder()
-
-                .appendDays().appendSuffix(" day ", " d ")
-                .appendHours().appendSuffix(" hour ", " h ")
+                .appendWeeks().appendSuffix(" week ", " weeks " )
+                .appendDays().appendSuffix(" day ", " days ")
+                .appendHours().appendSuffix(" hour ", " hours ")
                 .toFormatter();
-
         if (period.getHours() > 0) {
 
             return formatter.print(period);
