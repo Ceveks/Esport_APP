@@ -726,7 +726,7 @@ public class csgo extends AppCompatActivity {
 
                                 } else {
 
-                                    builder.append("   -                                ").append("   date:   ").
+                                    builder.append("   -                                               ").append("   date:   ").
                                             append(currentDate).append(" || ").append(daysLeft).append("\n");
                                 }
                             }
