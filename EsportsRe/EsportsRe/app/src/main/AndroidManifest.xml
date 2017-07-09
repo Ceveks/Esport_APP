@@ -47,15 +47,23 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".csgo" />
-
         </activity>
-        <activity android:name=".csgoEvents"
+        <activity
+            android:name=".csgoEvents"
             android:label="Events"
             android:parentActivityName=".csgo">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".csgo" />
-            </activity>
+        </activity>
+        <activity android:name=".liveMatch"
+
+            android:label="Live match"
+            android:parentActivityName=".csgo">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".csgo" />
+        </activity>
     </application>
 
 </manifest>

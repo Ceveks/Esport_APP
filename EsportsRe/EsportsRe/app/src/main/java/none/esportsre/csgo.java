@@ -342,67 +342,98 @@ public class csgo extends AppCompatActivity {
         lister.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, final long id) {
-                AlertDialog.Builder mBuilder = new AlertDialog.Builder(csgo.this);
-                mBuilder.setMessage("Do you want to be notified about this match?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        int CheckIfMatchSavedAlready = 0;
 
-                        final StringBuilder crossChecker = new StringBuilder();
+                if (adapter.getItem(position).startsWith("LIVE")){
 
 
-                        FileInputStream fis;
-
-                        try {
-                            fis = openFileInput("matchesSaved");
-                            InputStreamReader isr = new InputStreamReader(fis);
-                            BufferedReader bfr = new BufferedReader(isr);
-                            String message;
+                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(csgo.this);
+                    mBuilder.setMessage("Do you want to follow this match?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
 
-                            while ((message = bfr.readLine()) != null) {
-                                crossChecker.append(message);
+                            Intent goToLiveMatch = new Intent(csgo.this, liveMatch.class);
+                            goToLiveMatch.putExtra("matchup",adapter.getItem(position));
+                            startActivity(goToLiveMatch);
+
+                        }
+                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+
+                        }
+                    });
+
+                    AlertDialog alert = mBuilder.create();
+                    alert.setTitle("LIVE MATCH");
+                    alert.show();
+
+
+
+
+                }else {
+                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(csgo.this);
+                    mBuilder.setMessage("Do you want to be notified about this match?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            int CheckIfMatchSavedAlready = 0;
+
+                            final StringBuilder crossChecker = new StringBuilder();
+
+
+                            FileInputStream fis;
+
+                            try {
+                                fis = openFileInput("matchesSaved");
+                                InputStreamReader isr = new InputStreamReader(fis);
+                                BufferedReader bfr = new BufferedReader(isr);
+                                String message;
+
+
+                                while ((message = bfr.readLine()) != null) {
+                                    crossChecker.append(message);
+                                }
+
+                            } catch (IOException e) {
+
+                                e.printStackTrace();
                             }
 
-                        } catch (IOException e) {
-
-                            e.printStackTrace();
-                        }
-
-                        String[] str = crossChecker.toString().split("#");
+                            String[] str = crossChecker.toString().split("#");
 
 
-                        for (int z = 0; z < str.length; z++) {
+                            for (int z = 0; z < str.length; z++) {
 
 
-                            if (str[z].regionMatches(1, adapter.getItem(position), 2, 20)) {
-                                CheckIfMatchSavedAlready = 1;
-                                break;
+                                if (str[z].regionMatches(1, adapter.getItem(position), 2, 20)) {
+                                    CheckIfMatchSavedAlready = 1;
+                                    break;
+                                }
+                            }
+
+                            if (CheckIfMatchSavedAlready == 1) {
+
+                                Toast.makeText(getApplicationContext(), "Match is already saved", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
+                                saveMatch(adapter.getItem(position));
+
+                                listItems.remove(position);
+                                adapter.notifyDataSetChanged();
                             }
                         }
+                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
-                        if (CheckIfMatchSavedAlready == 1) {
-
-                            Toast.makeText(getApplicationContext(), "Match is already saved", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(getApplicationContext(), "Saved", Toast.LENGTH_SHORT).show();
-                            saveMatch(adapter.getItem(position));
-
-                            listItems.remove(position);
-                            adapter.notifyDataSetChanged();
                         }
-                    }
-                }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                    });
 
-                    }
-                });
+                    AlertDialog alert = mBuilder.create();
+                    alert.setTitle("Reminder");
+                    alert.show();
 
-                AlertDialog alert = mBuilder.create();
-                alert.setTitle("Reminder");
-                alert.show();
-
+                }
             }
         });
 
@@ -617,7 +648,7 @@ public class csgo extends AppCompatActivity {
             @Override
             public void run() {
                 final StringBuilder builder = new StringBuilder();
-                String tolowercaseAndTrimmed = searchedWord.toLowerCase().trim();
+                final String tolowercaseAndTrimmed = searchedWord.toLowerCase().trim();
 
                 Document doc = null;
                 try {
@@ -737,7 +768,7 @@ public class csgo extends AppCompatActivity {
 
                             if(builder.length() == 0){
 
-                                tex.setText("No matches found");
+                               tex.setText("No matches found");
 
                             }else {
                                 String[] teams = builder.toString().split("\n");
@@ -747,7 +778,10 @@ public class csgo extends AppCompatActivity {
                                     adapter.notifyDataSetChanged();
                                }
 
+
                             }
+                            liveMatch(searchedWord);
+
                         }
                     });
 
@@ -827,6 +861,53 @@ public class csgo extends AppCompatActivity {
         return str;
     }
 
+    private void liveMatch(final String teamName) {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                final StringBuilder liveBuilder = new StringBuilder();
+                Document doc = null;
+                try {
+                    //Connect til det pågældendes event's link
+                    doc = Jsoup.connect("https://www.hltv.org/matches").get();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Elements live = doc.select("div.live-matches");
+
+                for(Element matches : live.select("div.live-match")){
+
+                    if(matches.select("span.team-name").text().toLowerCase().contains(teamName.trim().toLowerCase())){
+                        liveBuilder.append("LIVE MATCH >>").append(matches.select("span.team-name")
+                                .first().text()).append(" - ").append(matches.select("span.team-name").last().text());
+
+                        break;
+                    }
+                }
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if(!liveBuilder.toString().isEmpty()){
+
+                            adapter.insert(liveBuilder.toString(), 0);
+                            adapter.notifyDataSetChanged();
+                        }
+
+                    }
+                });
+
+
+            }
+        }).start();
+
+    }
+
+
+
+
 
     public String getDifference(String Date, String Clock) {
 
@@ -850,7 +931,14 @@ public class csgo extends AppCompatActivity {
                 .appendDays().appendSuffix(" day ", " days ")
                 .appendHours().appendSuffix(" hour ", " hours ")
                 .toFormatter();
-        if (period.getHours() > 0) {
+
+
+
+
+
+
+
+        if (period.getHours() > 0 || period.getWeeks() > 0) {
 
             return formatter.print(period);
         }else{

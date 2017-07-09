@@ -22,9 +22,12 @@ public class main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         csgoButton = (Button) findViewById(R.id.csgoButt);
-        lolButt = (Button) findViewById(R.id.lolButton);
+
         settingsButt = (Button) findViewById(R.id.settingsButton);
 
+
+        /*
+        lolButt = (Button) findViewById(R.id.lolButton);
         lolButt.setEnabled(false);
 
         lolButt.setOnClickListener(new View.OnClickListener() {
@@ -34,7 +37,7 @@ public class main extends AppCompatActivity {
                 startActivity(lolActive);
             }
         });
-
+*/
         csgoButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
