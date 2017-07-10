@@ -29,6 +29,7 @@ import org.joda.time.Period;
 import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.BooleanAttribute;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -67,7 +68,7 @@ public class csgo extends AppCompatActivity {
     ListView savedLister;
     ArrayList<String> savedItems=new ArrayList<>();
     ArrayAdapter<String> savedAdapter;
-
+    Boolean matchFound;
     ListView lister;
     ArrayList<String> listItems=new ArrayList<>();
     ArrayAdapter<String> adapter;
@@ -768,7 +769,7 @@ public class csgo extends AppCompatActivity {
 
                             if(builder.length() == 0){
 
-                               tex.setText("No matches found");
+                               matchFound=false;
 
                             }else {
                                 String[] teams = builder.toString().split("\n");
@@ -777,6 +778,7 @@ public class csgo extends AppCompatActivity {
                                     listItems.add(teams[y]);
                                     adapter.notifyDataSetChanged();
                                }
+                               matchFound=true;
 
 
                             }
@@ -894,6 +896,10 @@ public class csgo extends AppCompatActivity {
 
                             adapter.insert(liveBuilder.toString(), 0);
                             adapter.notifyDataSetChanged();
+                        }if (!matchFound && liveBuilder.toString().isEmpty()){
+                            tex.setText("No matches found");
+
+
                         }
 
                     }

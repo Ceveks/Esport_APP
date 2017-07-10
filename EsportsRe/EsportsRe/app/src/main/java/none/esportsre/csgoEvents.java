@@ -796,6 +796,5 @@ public class csgoEvents extends AppCompatActivity {
 
     return teamNameWithoutDot;}
 
-
 }
 
