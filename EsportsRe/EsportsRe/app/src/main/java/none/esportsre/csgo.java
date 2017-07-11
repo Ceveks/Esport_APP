@@ -264,13 +264,10 @@ public class csgo extends AppCompatActivity {
                 goback.setVisibility(View.VISIBLE);
                 ast.setVisibility(View.INVISIBLE);
                 lister.setVisibility(View.INVISIBLE);
-
                 cloud.setVisibility(View.INVISIBLE);
                 hero.setVisibility(View.INVISIBLE);
                 nort.setVisibility(View.INVISIBLE);
-
                 allBut.setVisibility(View.INVISIBLE);
-
 
                 new Thread(new Runnable() {
                     @Override
@@ -338,7 +335,6 @@ public class csgo extends AppCompatActivity {
 
         lister = (ListView) findViewById(R.id.ListerID);
 
-
         lister.setAdapter(adapter);
         lister.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -346,12 +342,10 @@ public class csgo extends AppCompatActivity {
 
                 if (adapter.getItem(position).startsWith("LIVE")){
 
-
                     AlertDialog.Builder mBuilder = new AlertDialog.Builder(csgo.this);
-                    mBuilder.setMessage("Do you want to follow this match?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    mBuilder.setMessage("Do you want to continue to the match page?").setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-
 
                             Intent goToLiveMatch = new Intent(csgo.this, liveMatch.class);
                             goToLiveMatch.putExtra("matchup",adapter.getItem(position));
@@ -368,9 +362,6 @@ public class csgo extends AppCompatActivity {
                     AlertDialog alert = mBuilder.create();
                     alert.setTitle("LIVE MATCH");
                     alert.show();
-
-
-
 
                 }else {
                     AlertDialog.Builder mBuilder = new AlertDialog.Builder(csgo.this);
@@ -404,7 +395,6 @@ public class csgo extends AppCompatActivity {
 
 
                             for (int z = 0; z < str.length; z++) {
-
 
                                 if (str[z].regionMatches(1, adapter.getItem(position), 2, 20)) {
                                     CheckIfMatchSavedAlready = 1;
@@ -911,10 +901,6 @@ public class csgo extends AppCompatActivity {
 
     }
 
-
-
-
-
     public String getDifference(String Date, String Clock) {
 
         String[] newDate = Date.split("-");
@@ -937,10 +923,6 @@ public class csgo extends AppCompatActivity {
                 .appendDays().appendSuffix(" day ", " days ")
                 .appendHours().appendSuffix(" hour ", " hours ")
                 .toFormatter();
-
-
-
-
 
 
 

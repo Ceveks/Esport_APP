@@ -15,7 +15,6 @@ import java.io.IOException;
 public class liveMatch extends AppCompatActivity {
     TextView tex;
 
-    String MyString;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,11 +29,11 @@ public class liveMatch extends AppCompatActivity {
 
         getLiveMatchData(matchup.split("-")[1]);
 
-
-
     }
 
     private void getLiveMatchData(final String team) {
+
+
 
         new Thread(new Runnable() {
             @Override
@@ -43,6 +42,10 @@ public class liveMatch extends AppCompatActivity {
                 final StringBuilder linkBuild = new StringBuilder();
                 final StringBuilder strBuild = new StringBuilder();
                 Document doc = null;
+
+                String team1;
+                String team2;
+                String score;
                 try {
                     //Connect til det pågældendes event's link
                     doc = Jsoup.connect("https://www.hltv.org/matches").get();
@@ -55,10 +58,19 @@ public class liveMatch extends AppCompatActivity {
                 for (Element finder : live.select("div.live-match")) {
 
                     if (finder.select("span.team-name").text().toLowerCase().contains(team.toLowerCase())) {
-
                         Element link = finder.select("a").first();
-
                         linkBuild.append(link.absUrl("href"));
+
+                        Element table = finder.select("table.table").first();
+                            for (Element row : table.select("tr")) {
+                                Elements tds = row.select("td");
+
+                                strBuild.append(tds.get(0).text() + ":" + tds.get(1).text()+":");
+
+
+                            }
+
+
                     }
                 }
 
@@ -72,58 +84,21 @@ public class liveMatch extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-
                 Element element = newDoc.select("div.match-page").first();
 
-                strBuild.append(element.select("div.lineups").text());
-
-
-
+                Element scoreBoard = element.select("div#scoreboardElement").first();
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
+                        String[] splitter = strBuild.toString().split(":");
                         if(!strBuild.toString().isEmpty()) {
-                            tex.setText(strBuild.toString());
+                            tex.setText("Mode: " + splitter[0]+ "\n Map:  "+ splitter[1] + "\n" +
+                            splitter[2] +" - " + splitter[3] + "\n" +splitter[4] + " - " + splitter[5]);
                         }
                         else {
                             tex.setText("Not found");
                         }
-
-                    }
-                });
-
-
-            }
-        }).start();
-
-    }
-
-
-
-
-    private void findMatchup() {
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-                StringBuilder matchupBuilder = new StringBuilder();
-                Document doc = null;
-                try {
-                    //Connect til det pågældendes event's link
-                    doc = Jsoup.connect(MyString).get();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-
-
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-
 
                     }
                 });

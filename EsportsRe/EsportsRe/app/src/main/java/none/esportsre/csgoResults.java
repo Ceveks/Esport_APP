@@ -44,7 +44,7 @@ public class csgoResults extends AppCompatActivity {
         recentLister = (ListView) findViewById(R.id.resultsList);
 
         goback = (Button) findViewById(R.id.goBackToCsgo);
-        tester = (TextView) findViewById(R.id.tester); 
+
         
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
