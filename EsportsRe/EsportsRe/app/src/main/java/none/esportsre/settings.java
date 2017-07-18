@@ -39,7 +39,7 @@ public class settings extends AppCompatActivity {
     CheckBox heroic;
     Button save;
     CheckBox flip;
-    Button  sendNofi;
+
 
     ArrayList<String> selected = new ArrayList<>();
 
@@ -65,17 +65,6 @@ public class settings extends AppCompatActivity {
         heroic = (CheckBox) findViewById(R.id.heroicCheck);
         save = (Button) findViewById(R.id.saveButt);
         flip = (CheckBox) findViewById(R.id.flipsid3);
-
-       sendNofi.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View view) {
-
-           }
-       });
-
-
-
-
 
 
         save.setOnClickListener(new View.OnClickListener() {

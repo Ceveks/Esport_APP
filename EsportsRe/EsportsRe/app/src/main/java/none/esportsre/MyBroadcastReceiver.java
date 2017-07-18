@@ -213,20 +213,27 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                 .appendHours().appendSuffix(" hour ", " hours ")
                 .toFormatter();
 
+        PeriodFormatter formatterMinutes = new PeriodFormatterBuilder()
+                .appendMinutes().appendSuffix(" minute ", " minutes ")
+                .toFormatter();
 
 
-        if (period.getHours() > 0 || period.getWeeks() > 0) {
 
-            return formatter.print(period);
-        }else{
+        if (period.getMinutes() > 0 || period.getHours() > 0 || period.getWeeks() > 0) {
+            if(period.getMinutes()>0 && period.getHours()<=0 && period.getWeeks() <= 0){
+                return formatterMinutes.print(period);
+
+            }else {
+                return formatter.print(period);
+            }
+        }
+        else{
+
             return "Match already played";
         }
     }
 
     public Boolean isItTimeToSendANotification(String hou, String min) {
-
-       // String[] newClock = Clock.split(":");
-
 
         int hours = Integer.parseInt(hou.trim());
         int minutes = Integer.parseInt(min.trim());
@@ -237,7 +244,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         Period period = new Period(startDate, endDate);
 
 
-        if (period.getHours() <= 1) return true;
+        if (period.getHours() < 1) return true;
         else return false;
     }
 
