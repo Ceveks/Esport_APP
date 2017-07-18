@@ -91,7 +91,22 @@ public class liveMatch extends AppCompatActivity {
                     @Override
                     public void run() {
 
+
+
+
                         String[] splitter = strBuild.toString().split(":");
+                        switch(splitter[1]){
+
+                            case "trn" : splitter[1] = "Train";break;
+                            case "mrg" : splitter[1] = "Mirage";break;
+                            case "cbl" : splitter[1] = "Cbble";break;
+                            case "cch" : splitter[1] = "Cache";break;
+                            case "ovp" : splitter[1] = "Overpass";break;
+                            case "inf" : splitter[1] = "Inferno";break;
+                            case "nuk" : splitter[1] = "Nuke";break;
+
+
+                        }
                         if(!strBuild.toString().isEmpty()) {
                             tex.setText("Mode: " + splitter[0]+ "\n Map:  "+ splitter[1] + "\n" +
                             splitter[2] +" - " + splitter[3] + "\n" +splitter[4] + " - " + splitter[5]);

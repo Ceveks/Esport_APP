@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/csgo"
@@ -30,7 +31,7 @@
         </activity>
         <activity android:name=".lol" />
 
-        <receiver android:name=".MyBroadcastReceiver" />
+        <receiver android:name=".MyBroadcastReceiver"  android:process=":remote"> </receiver>
 
         <activity
             android:name=".settings"
@@ -56,14 +57,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".csgo" />
         </activity>
-        <activity android:name=".liveMatch"
-
+        <activity
+            android:name=".liveMatch"
             android:label="Live match"
             android:parentActivityName=".csgo">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".csgo" />
         </activity>
+
     </application>
 
 </manifest>

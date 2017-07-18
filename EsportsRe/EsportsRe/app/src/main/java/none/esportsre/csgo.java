@@ -460,6 +460,7 @@ public class csgo extends AppCompatActivity {
                 cloud.setVisibility(View.INVISIBLE);
                 nort.setVisibility(View.INVISIBLE);
                 allBut.setVisibility(View.INVISIBLE);
+                searchedWord="asdadmadamsdmdajasdasdad";
                 getData();
             }
         });
@@ -686,16 +687,16 @@ public class csgo extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         break;
-                    default:
+                    case "asdadmadamsdmdajasdasdad":
 
                         ele = doc.select("div.upcoming-matches");
                         for (Element date : ele.select("div.match-day")) {
                             for (Element element : date.select("table.table")) {
 
-                                if (element.select("div.team").text().toLowerCase().equals(getteam1.toLowerCase())
-                                        ||element.select("div.team").text().toLowerCase().equals(getteam2.toLowerCase())
-                                        || element.select("div.team").text().toLowerCase().equals(getteam3.toLowerCase())
-                                        || element.select("div.team").text().toLowerCase().equals(getteam4.toLowerCase())  ) {
+                                if (element.select("div.team").text().toLowerCase().trim().contains(getteam1.toLowerCase().trim())
+                                        ||element.select("div.team").text().toLowerCase().trim().contains(getteam2.toLowerCase().trim())
+                                        || element.select("div.team").text().toLowerCase().trim().contains(getteam3.toLowerCase().trim())
+                                        || element.select("div.team").text().toLowerCase().trim().contains(getteam4.toLowerCase().trim())  ) {
                                     String currentDate = parseDateToddMMyyyy(date.select("span.standard-headline").text());
 
                                     String daysLeft = getDifference(date.select("span.standard-headline").text(), element.select("div.time").text());
@@ -703,16 +704,17 @@ public class csgo extends AppCompatActivity {
                                     builder.append("#").append(element.select("div.time").text()).
                                             append("  -  ").append(element.select("div.team").first().text()).
                                             append("  vs.  ").append(element.select("div.team").last().text());
+                                    int leng = element.select("div.team").first().text().length() + element.select("div.team").last().text().length();
 
-                                    if (element.select("div.team").last().text().length() > 10 || element.select("div.team").last().text().length() > 10) {
+                                    if (leng > 32) {
 
 
-                                        builder.append(" - ").append("   date:   ").
+                                        builder.append("   - ").append("   date:   ").
                                                 append(currentDate).append(" || ").append(daysLeft).append("\n");
 
                                     } else {
 
-                                        builder.append("    -                                ").append("   date:   ").
+                                        builder.append("   -                                               ").append("   date:   ").
                                                 append(currentDate).append(" || ").append(daysLeft).append("\n");
                                     }
 
@@ -757,9 +759,18 @@ public class csgo extends AppCompatActivity {
                         @Override
                         public void run() {
 
+                            if(searchedWord=="asdadmadamsdmdajasdasdad"){
+                                recent.setEnabled(false);
+
+
+                            }
+
                             if(builder.length() == 0){
 
                                matchFound=false;
+
+
+                                recent.setEnabled(true);
 
                             }else {
                                 String[] teams = builder.toString().split("\n");
@@ -886,8 +897,10 @@ public class csgo extends AppCompatActivity {
 
                             adapter.insert(liveBuilder.toString(), 0);
                             adapter.notifyDataSetChanged();
+                            recent.setEnabled(true);
                         }if (!matchFound && liveBuilder.toString().isEmpty()){
                             tex.setText("No matches found");
+                            recent.setEnabled(false);
 
 
                         }
@@ -924,14 +937,26 @@ public class csgo extends AppCompatActivity {
                 .appendHours().appendSuffix(" hour ", " hours ")
                 .toFormatter();
 
+        PeriodFormatter formatterMinutes = new PeriodFormatterBuilder()
+                .appendMinutes().appendSuffix(" minute ", " minutes ")
+                .toFormatter();
 
 
-        if (period.getHours() > 0 || period.getWeeks() > 0) {
 
-            return formatter.print(period);
-        }else{
+        if (period.getMinutes() > 0 || period.getHours() > 0 || period.getWeeks() > 0) {
+            if(period.getMinutes()>0 && period.getHours()<=0 && period.getWeeks() <= 0){
+                return formatterMinutes.print(period);
+
+            }else {
+                return formatter.print(period);
+            }
+            }
+       else{
+
             return "Match already played";
         }
+
+
     }
 
     public void favteams(){
