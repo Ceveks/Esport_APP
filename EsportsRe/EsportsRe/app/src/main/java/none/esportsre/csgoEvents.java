@@ -1,15 +1,11 @@
 package none.esportsre;
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
-import android.support.v4.media.session.PlaybackStateCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Html;
 import android.text.SpannableString;
-import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,12 +16,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+import org.joda.time.format.PeriodFormatter;
+import org.joda.time.format.PeriodFormatterBuilder;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -192,6 +190,81 @@ public class csgoEvents extends AppCompatActivity {
 
 
                 }
+                String linkToUpcomingMatch = null;
+                Elements linksInNavigationBar = doc.select("div.event-navigation");
+                for(Element link : linksInNavigationBar.select("a")){
+                    if(link.absUrl("href").contains("matches")){
+                        linkToUpcomingMatch = link.absUrl("href");
+
+                    }
+                }
+                Document newDoc = null;
+                try {
+                    //Connect til det pågældendes event's link
+                    newDoc = Jsoup.connect(linkToUpcomingMatch).get();
+                    Thread.sleep(500);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                final StringBuilder eventMatchesBuilder = new StringBuilder();
+                final StringBuilder eventMatchesBuilder2 = new StringBuilder();
+                Elements ele;
+                if (newDoc != null) {
+                    ele = newDoc.select("div.upcoming-matches");
+
+
+                    for (Element date : ele.select("div.match-day")) {
+                        for (Element team : date.select("table.table")) {
+
+                      /*      for (Element row : team.select("td")) {
+
+
+                                eventMatchesBuilder.append(row.text()).append(":");
+
+
+                            }*/
+
+
+
+                           eventMatchesBuilder.append(team.text()).append(" || ")
+                                   .append(getDifference(date.select("span.standard-headline")
+                                           .text() ,team.text().split(":")[0], team.text()
+                                           .substring(team.text().indexOf(":")+1, 5).trim())).append("\n")
+                                   .append("_________________________").append("\n").append("\n");
+                       /*     for(Element tds : team.select("tds")){
+                                eventMatchesBuilder2.append(tds.text()).append(":");
+                            }
+                             team.select("td").text();
+
+                           /* eventMatchesBuilder.append("\n").append(team.select("div.time").text()).
+                                    append("  -  ").append(team.select("div.team").first().text())
+                                    .append("  vs.  ").append(team.select("div.team").last().text());
+
+                           eventMatchesBuilder.append(eventMatchesBuilder2.toString()).append("\n");
+
+                            eventMatchesBuilder2.delete(0, eventMatchesBuilder2.length());
+*/
+                        }
+                    }
+                }
+/*
+                String[] newString = eventMatchesBuilder.toString().split("\n");
+
+
+                for(int x = 0; x < newString.length; x++){
+
+                    eventMatchesBuilder2.append(newString[x].split(":")[0]).append(":")
+                            .append(newString[x].split(":")[1]).append(" - ")
+                            .append(newString[x].split(":")[2]).append(" vs. ")
+                            .append(newString[x].split(":")[2]).append("\n");
+                }
+
+*/
+
+
+
 
                 //Start en AlertDialog (Pop-up vindue)
                 runOnUiThread(new Runnable() {
@@ -201,7 +274,9 @@ public class csgoEvents extends AppCompatActivity {
                         final SpannableString s = new SpannableString(linkToPage);
                         AlertDialog.Builder mBuilder = new AlertDialog.Builder(csgoEvents.this);
                         mBuilder.setMessage("All teams:  \n \n ---------------------------------------------------- \n" +
-                                ""+ allTeams.toString()+ "\n ----------------------------------------------------\n" +s)
+                                ""+ allTeams.toString()+ "\n ----------------------------------------------------\n"+
+                                "Upcoming matches: \n \n"+
+                                eventMatchesBuilder.toString() +"\n" +s  )
                                 .setPositiveButton("Close", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -795,6 +870,51 @@ public class csgoEvents extends AppCompatActivity {
         String teamNameWithoutDot= teamNameWithDot.replace(".", "");
 
     return teamNameWithoutDot;}
+
+    public String getDifference(String Date, String hour, String minute) {
+
+        String[] newDate = Date.split("-");
+
+
+        int years = Integer.parseInt(newDate[0]);
+        int months = Integer.parseInt(newDate[2]);
+        int days = Integer.parseInt(newDate[1]);
+        int hours = Integer.parseInt(hour);
+        int minutes = Integer.parseInt(minute);
+
+        DateTime startDate = DateTime.now();
+        DateTime endDate = new DateTime(years, days, months, hours, minutes);
+
+        Period period = new Period(startDate, endDate);
+
+
+        PeriodFormatter formatter = new PeriodFormatterBuilder()
+                .appendWeeks().appendSuffix(" week ", " weeks " )
+                .appendDays().appendSuffix(" day ", " days ")
+                .appendHours().appendSuffix(" hour ", " hours ")
+                .toFormatter();
+
+        PeriodFormatter formatterMinutes = new PeriodFormatterBuilder()
+                .appendMinutes().appendSuffix(" minute ", " minutes ")
+                .toFormatter();
+
+
+
+        if (period.getMinutes() > 0 || period.getHours() > 0 || period.getWeeks() > 0) {
+            if(period.getMinutes()>0 && period.getHours()<=0 && period.getWeeks() <= 0){
+                return formatterMinutes.print(period);
+
+            }else {
+                return formatter.print(period);
+            }
+        }
+        else{
+
+            return "Match already played";
+        }
+
+
+    }
 
 }
 

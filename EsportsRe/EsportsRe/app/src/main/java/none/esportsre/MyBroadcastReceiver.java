@@ -28,6 +28,9 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
     final StringBuilder matchBuilder = new StringBuilder();
     @Override
     public void onReceive(Context context, Intent intent) {
+       NotificationManager notificationCanceler = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        notificationCanceler.cancelAll();
 
         SharedPreferences teams = context.getSharedPreferences("favteams", Context.MODE_PRIVATE);
         try {
@@ -84,6 +87,8 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
 
         }
     }
+
+
 
     private void getData(final Context con, final String getteam1, final String getteam2, final String getteam3, final String getteam4) {
 
@@ -244,7 +249,7 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
         Period period = new Period(startDate, endDate);
 
 
-        if (period.getHours() < 1) return true;
+        if (period.getHours() < 1 && period.getHours()>0) return true;
         else return false;
     }
 
