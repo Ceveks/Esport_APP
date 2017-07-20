@@ -51,6 +51,7 @@ public class main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent lolActive = new Intent(main.this, lol.class);
+
                 startActivity(lolActive);
             }
         });
@@ -60,8 +61,8 @@ public class main extends AppCompatActivity {
             public void onClick(View v) {
 
             Calendar calendar = Calendar.getInstance();
-                calendar.set(Calendar.HOUR_OF_DAY,19);
-                calendar.set(Calendar.MINUTE,00);
+                calendar.set(Calendar.HOUR_OF_DAY,17);
+                calendar.set(Calendar.MINUTE,50);
                 Intent intent = new Intent(getApplicationContext(),MyBroadcastReceiver.class);
                 PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(),0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
                 AlarmManager alarmManager = (AlarmManager)getSystemService(ALARM_SERVICE);
