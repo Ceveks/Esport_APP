@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 
 import android.support.v7.app.AlertDialog;
@@ -42,6 +43,7 @@ import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
 
@@ -759,6 +761,19 @@ public class csgo extends AppCompatActivity {
                         @Override
                         public void run() {
 
+                            Resources res = getResources();
+                            String[] teamNamesForRecentResults = res.getStringArray(R.array.teamsForAutofill);
+                            String[] teamsForRecentResultsToLowerCase = new String[teamNamesForRecentResults.length];
+                            for(int x=0; x<teamNamesForRecentResults.length; x++){
+
+                                 teamsForRecentResultsToLowerCase[x] = teamNamesForRecentResults[x].toLowerCase();
+                            }
+                            if(Arrays.asList(teamsForRecentResultsToLowerCase).contains(searchedWord.toLowerCase())) {
+                                recent.setEnabled(true);
+                            }else{
+                                recent.setEnabled(false);
+                            }
+
                             if(searchedWord=="asdadmadamsdmdajasdasdad"){
                                 recent.setEnabled(false);
 
@@ -770,7 +785,6 @@ public class csgo extends AppCompatActivity {
                                matchFound=false;
 
 
-                                recent.setEnabled(true);
 
                             }else {
                                 String[] teams = builder.toString().split("\n");
@@ -899,8 +913,8 @@ public class csgo extends AppCompatActivity {
                             adapter.notifyDataSetChanged();
                             recent.setEnabled(true);
                         }if (!matchFound && liveBuilder.toString().isEmpty()){
-                            tex.setText("No matches found");
-                            recent.setEnabled(false);
+                            tex.setText("No matches found for: " + searchedWord);
+
 
 
                         }
