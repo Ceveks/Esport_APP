@@ -22,9 +22,11 @@
             android:layout_below="@+id/textHere"
             android:layout_weight="1"
             android:elevation="5dp"
+            android:textStyle=""
             android:text="Search"
             tools:layout_editor_absoluteX="34dp"
-            tools:layout_editor_absoluteY="73dp" />
+            tools:layout_editor_absoluteY="73dp"
+            />
 
         <Button
             android:id="@+id/goBack"
