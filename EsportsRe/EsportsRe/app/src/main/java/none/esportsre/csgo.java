@@ -305,7 +305,7 @@ public class csgo extends AppCompatActivity {
 
                                 for (int a = 1; a <= str.length - 1; a++) {
 
-                                    strB[a] = getDifference(parseDateToyyyyMMdd(str[a].split(":")[2]), str[a].substring(0, 5));
+                                    strB[a] = getDifference(parseDateToyyyyMMdd(str[a].split(":")[2]).trim(), str[a].substring(0, 5).trim());
 
 
                                 }
@@ -316,7 +316,7 @@ public class csgo extends AppCompatActivity {
                                 }
 
                                 savedItems.remove(0);
-
+/*
                                 savedAdapter.sort(new Comparator<String>() {
                                     @Override
                                     public int compare(String s, String t1) {
@@ -324,7 +324,7 @@ public class csgo extends AppCompatActivity {
                                         return 0;
                                     }
                                 });
-
+*/
                             }
                         });
 
@@ -398,7 +398,7 @@ public class csgo extends AppCompatActivity {
 
                             for (int z = 0; z < str.length; z++) {
 
-                                if (str[z].regionMatches(1, adapter.getItem(position), 2, 20)) {
+                                if (str[z].regionMatches(2, adapter.getItem(position), 2, 30)) {
                                     CheckIfMatchSavedAlready = 1;
                                     break;
                                 }
@@ -737,7 +737,9 @@ public class csgo extends AppCompatActivity {
 
                                 int leng = element.select("div.team").first().text().length() + element.select("div.team").last().text().length();
 
-                                builder.append("#").append(element.select("div.time").text()).
+                                builder.
+                                        //append("#").
+                                        append(element.select("div.time").text()).
                                         append("  -  ").append(element.select("div.team").first().text()).
                                         append("  vs.  ").append(element.select("div.team").last().text());
 
@@ -790,7 +792,7 @@ public class csgo extends AppCompatActivity {
                                 String[] teams = builder.toString().split("\n");
 
                                for (int y = 0; y < teams.length; y++) {
-                                    listItems.add(teams[y]);
+                                    listItems.add(teams[y]+"\n");
                                     adapter.notifyDataSetChanged();
                                }
                                matchFound=true;
@@ -810,15 +812,10 @@ public class csgo extends AppCompatActivity {
 
     public void saveMatch(String matchData){
         StringBuilder strB = new StringBuilder();
-        String Mess = matchData;
-        String NewString = Mess.substring(Mess.indexOf("#") + 1, Mess.indexOf("||"));
+        String NewString = matchData.substring(0, matchData.indexOf("||"));
         strB.append("#").append(NewString);
 
-
         String file_name = "matchesSaved";
-
-
-
             try{
                 FileOutputStream fileOutputStream = openFileOutput(file_name, MODE_APPEND);
                 fileOutputStream.write(strB.toString().getBytes());
