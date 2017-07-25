@@ -15,8 +15,6 @@ public class main extends AppCompatActivity {
 
     Button csgoButton;
     Button settingsButt;
-    Button lolButt;
-    TextView textView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
