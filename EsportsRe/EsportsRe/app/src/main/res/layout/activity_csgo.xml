@@ -49,7 +49,7 @@
                 android:layout_column="2"
                 android:layout_gravity="end"
                 android:layout_row="0"
-                android:text="Events" />
+                android:text="Settings" />
 
 
             <Button

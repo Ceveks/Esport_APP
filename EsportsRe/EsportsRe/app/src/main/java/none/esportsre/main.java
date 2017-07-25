@@ -21,13 +21,12 @@ public class main extends AppCompatActivity {
 
     Button csgoButton;
     Button settingsButt;
-    Button lolButt;
-    TextView textView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        csgoButton = (Button) findViewById(R.id.csgoButt);
+        setContentView(R.layout.activity_newmain);
+        csgoButton = (Button) findViewById(R.id.Cs_button);
         csgoButton.setEnabled(false);
         SharedPreferences teams = getSharedPreferences("favteams", Context.MODE_PRIVATE);
 
@@ -40,7 +39,7 @@ public class main extends AppCompatActivity {
 
 
 
-        settingsButt = (Button) findViewById(R.id.settingsButton);
+        settingsButt = (Button) findViewById(R.id.Event_button);
 
 
         /*
@@ -76,8 +75,11 @@ public class main extends AppCompatActivity {
         settingsButt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent settingsActive = new Intent(main.this, settings.class);
-                startActivity(settingsActive);
+
+
+                Intent eventsIntent = new Intent(main.this, csgoEvents.class);
+
+                startActivity(eventsIntent);
             }
         });
 

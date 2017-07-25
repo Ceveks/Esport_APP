@@ -95,9 +95,8 @@ public class csgo extends AppCompatActivity {
         events.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent eventsIntent = new Intent(csgo.this, csgoEvents.class);
-
-                startActivity(eventsIntent);
+                Intent settingsActive = new Intent(csgo.this, settings.class);
+                startActivity(settingsActive);
             }
         });
 

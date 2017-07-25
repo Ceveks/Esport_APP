@@ -18,12 +18,13 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:alpha="0.75"
-            android:background="@drawable/CS_Button"
+            android:background="@drawable/cs_button"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.StatusBar.EventContent.Title"
+            android:textColor="@android:color/holo_blue_dark"
             android:textIsSelectable="false"
             android:textSize="70sp"
-            tools:text="CS : GO " />
+            android:text="Matches" />
 
         <Button
             android:id="@+id/Event_button"
@@ -32,10 +33,11 @@
             android:layout_height="match_parent"
             android:layout_weight="0.5"
             android:alpha="0.70"
-            android:background="@drawable/Event_Button"
+            android:background="@drawable/event_button"
             android:textAppearance="@style/TextAppearance.AppCompat.Widget.Button.Colored"
+            android:textColor="@android:color/holo_blue_dark"
             android:textSize="70sp"
-            tools:text="Events" />
+            android:text="Events" />
 
 
 
