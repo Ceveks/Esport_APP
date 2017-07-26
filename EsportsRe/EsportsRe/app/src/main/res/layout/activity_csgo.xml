@@ -14,192 +14,36 @@
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
-        <GridLayout
-            android:id="@+id/topButtons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:columnCount="3"
-            android:rowCount="1">
-
-            <Button
-                android:id="@+id/savedMatches"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:layout_gravity="start"
-                android:layout_row="0"
-                android:text="saved matches" />
-
-            <Button
-                android:id="@+id/recentResults"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-                android:layout_gravity="center"
-                android:layout_row="0"
-                android:text="Recent results" />
-
-            <Button
-                android:id="@+id/eventsButton"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-                android:layout_gravity="end"
-                android:layout_row="0"
-                android:text="Settings" />
-
-
-            <Button
-                android:id="@+id/clearMatches"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="0"
-                android:layout_gravity="start"
-                android:layout_row="0"
-                android:text="Clear all"
-
-                />
-        </GridLayout>
-
-        <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/searchAndAllButtons"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="55dp"
-            android:columnCount="4"
-            android:orientation="horizontal"
-            android:rowCount="2">
-
-            <ImageButton
-                android:id="@+id/north"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="1"
-
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_row="0"
-                android:background="@android:color/transparent" />
-
-            <ImageButton
-                android:id="@+id/astralis"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="0"
-
-                android:layout_row="0"
-                android:background="@android:color/transparent" />
-
-            <ImageButton
-                android:id="@+id/heroic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="2"
-
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_row="0"
-                android:background="@android:color/transparent" />
-
-            <ImageButton
-                android:id="@+id/cloud9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_column="3"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_row="0"
-                android:background="@android:color/transparent" />
-        </GridLayout>
 
         <TextView
-            android:id="@+id/textHere"
+            android:id="@+id/tex"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/goBack"
-            android:layout_centerHorizontal="true" />
-
-        <GridLayout
-            android:id="@+id/searchAndAllButtons"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/Search"
-            android:layout_centerHorizontal="true"
-            android:columnCount="2"
-            android:rowCount="1">
-
-            <Button
-                android:id="@+id/allMatches"
-                android:layout_width="125dp"
-                android:layout_height="60dp"
-                android:layout_column="1"
-                android:layout_marginLeft="30dp"
-                android:layout_marginStart="30dp"
-                android:layout_row="0"
-                android:text="All matches" />
-
-            <Button
-                android:id="@+id/dataGetter"
-                android:layout_width="100dp"
-                android:layout_height="60dp"
-                android:layout_column="0"
-                android:layout_row="0"
-                android:text="Search" />
-        </GridLayout>
-
-        <Button
-            android:id="@+id/goBack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/Search"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:text="Go back"
-            android:visibility="invisible" />
-
-
-        <AutoCompleteTextView
-            android:id="@+id/Search"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:layout_below="@id/topButtons"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:layout_marginTop="50dp"
-            android:hint="Team name"
-            android:inputType="textPersonName"
-
-            />
+            android:layout_height="wrap_content" />
 
         <ListView
             android:id="@+id/ListerID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/Search"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
             android:background="@android:color/transparent"
             android:paddingLeft="30dp"
 
-            android:paddingStart="30dp" />
+            android:paddingStart="30dp"
+            android:layout_below="@+id/recentResults"
+            android:layout_toRightOf="@+id/tex"
+            android:layout_toEndOf="@+id/tex" />
 
-        <ListView
-            android:id="@+id/savedList"
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/recentResults"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/Search"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="30dp"
-            android:background="@android:color/transparent"
-            android:paddingLeft="30dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="115dp"
+            android:layout_marginStart="115dp"
+            android:text="recent matches" />
 
-            android:paddingStart="30dp" />
 
     </RelativeLayout>
 

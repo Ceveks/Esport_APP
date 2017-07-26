@@ -24,7 +24,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/saved_matches"
+                    android:id="@+id/savedMatches"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="175dp"
                     android:layout_height="40dp"
@@ -61,10 +61,9 @@
                     android:layout_weight="1" />
 
                 <AutoCompleteTextView
-                    android:id="@+id/search_team"
+                    android:id="@+id/Search"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/topButtons"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
 
@@ -81,7 +80,7 @@
                     android:layout_height="15dp" />
 
                 <Button
-                    android:id="@+id/search_button"
+                    android:id="@+id/dataGetter"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="175dp"
                     android:layout_height="40dp"
@@ -93,7 +92,7 @@
 
                 <Space
                     android:layout_width="1dp"
-                    android:layout_height="20dp" />
+                    android:layout_height="50dp" />
 
             </LinearLayout>
 
@@ -107,17 +106,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/north" />
+                    />
 
                 <ImageButton
                     android:id="@+id/team2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:alpha="0.3"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/questionmark" />
+
+                    />
 
 
             </LinearLayout>
@@ -143,9 +140,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:alpha="0.3"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/questionmark" />
+
+                  />
 
 
                 <ImageButton
@@ -153,9 +149,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:alpha="0.3"
-                    android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/questionmark" />
+
+                 />
 
             </LinearLayout>
 
@@ -164,7 +159,7 @@
                 android:layout_height="match_parent">
 
                 <Button
-                    android:id="@+id/button7"
+                    android:id="@+id/allMatches"
                     style="@style/Widget.AppCompat.Button.Colored"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -177,5 +172,28 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/clearMatches"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
+
+    <Button
+        android:id="@+id/recentResults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
+    <ListView
+        android:id="@+id/lister"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <ListView
+        android:id="@+id/savedList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
