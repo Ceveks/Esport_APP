@@ -858,10 +858,10 @@ public class csgoEvents extends AppCompatActivity {
     //Hent favorit hold
     public void favteams(){
         SharedPreferences teams = getSharedPreferences("favteams", Context.MODE_PRIVATE);
-        getteam1 = teams.getString("team1", "");
-        getteam2 = teams.getString("team2", "");
-        getteam3 = teams.getString("team3", "");
-        getteam4 = teams.getString("team4", "");
+        getteam1 = teams.getString("team0", "");
+        getteam2 = teams.getString("team1", "");
+        getteam3 = teams.getString("team2", "");
+        getteam4 = teams.getString("team3", "");
 
     }
     //Fjern punktum fra holdnavn

@@ -50,6 +50,8 @@ import java.util.Date;
 public class csgoSearched extends AppCompatActivity {
 
 
+    String firstTeam;
+    String secondteam;
     Button recent;
 
     String searchedWord;
@@ -174,6 +176,20 @@ public class csgoSearched extends AppCompatActivity {
                                 adapter.notifyDataSetChanged();
                             }
                         }
+                    }).setNeutralButton("Head-to-head", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            firstTeam = adapter.getItem(position).substring(adapter.getItem(position)
+                                    .indexOf("-",2)+1,  adapter.getItem(position).indexOf("vs.")).trim();
+                           secondteam = adapter.getItem(position).substring(adapter.getItem(position).indexOf("vs.")+1,
+                                   adapter.getItem(position).indexOf("-",10 )).trim();
+
+                            Intent startHeadToHead = new Intent(csgoSearched.this, headtohead.class);
+                            startHeadToHead.putExtra("firstTeam",firstTeam);
+                           startHeadToHead.putExtra("firstTeam",secondteam);
+                            startActivity(startHeadToHead);
+                        }
+
                     }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -289,7 +305,7 @@ public class csgoSearched extends AppCompatActivity {
                         }
                         break;
                 }
-
+                int k = 1;
                 ele = doc.select("div.upcoming-matches");
                 for (Element date : ele.select("div.match-day")) {
                     for (Element element : date.select("table.table")) {
@@ -306,6 +322,8 @@ public class csgoSearched extends AppCompatActivity {
                                             append(element.select("div.time").text()).
                                     append("  -  ").append(element.select("div.team").first().text()).
                                     append("  vs.  ").append(element.select("div.team").last().text());
+
+                            k++;
 
                             if (leng > 32) {
 
@@ -378,7 +396,7 @@ public class csgoSearched extends AppCompatActivity {
         String NewString = matchData.substring(0, matchData.indexOf("||"));
         strB.append("#").append(NewString);
 
-        String file_name = "matchesSaved";
+        String file_name = "matches_saved";
         try {
             FileOutputStream fileOutputStream = openFileOutput(file_name, MODE_APPEND);
             fileOutputStream.write(strB.toString().getBytes());
@@ -531,10 +549,10 @@ public class csgoSearched extends AppCompatActivity {
     }
     public void favteams(){
         SharedPreferences teams = getSharedPreferences("favteams", Context.MODE_PRIVATE);
-        getteam1 = teams.getString("team1", "");
-        getteam2 = teams.getString("team2", "");
-        getteam3 = teams.getString("team3", "");
-        getteam4 = teams.getString("team4", "");
+        getteam1 = teams.getString("team0", "");
+        getteam2 = teams.getString("team1", "");
+        getteam3 = teams.getString("team2", "");
+        getteam4 = teams.getString("team3", "");
 
     }
 

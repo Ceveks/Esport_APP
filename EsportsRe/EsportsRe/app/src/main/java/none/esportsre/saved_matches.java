@@ -87,7 +87,7 @@ public class saved_matches extends AppCompatActivity {
                 FileInputStream fis;
 
                 try {
-                    fis = openFileInput("matchesSaved");
+                    fis = openFileInput("matches_saved");
                     InputStreamReader isr = new InputStreamReader(fis);
                     BufferedReader bfr = new BufferedReader(isr);
                     String message;

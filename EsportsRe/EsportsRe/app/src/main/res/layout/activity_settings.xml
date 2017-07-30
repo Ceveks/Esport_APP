@@ -6,138 +6,336 @@
     android:layout_height="match_parent"
     tools:context="none.esportsre.settings">
 
-    <LinearLayout
+
+    <GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.466">
+        android:columnCount="3"
+        android:rowCount="2"
+        >
 
-        <TextView
-            android:id="@+id/select4Teams"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="155sp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="30sp"
+            android:layout_marginStart="20sp"
+            android:layout_marginTop="20sp"
+            android:layout_column="1"
+            >
+
+            <Button
+                android:id="@+id/saveButt"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:background="#3F51B5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="save" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="20sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Favorite teams:"
+                android:textSize="16sp"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="15sp" />
+
+            <TableRow
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="20sp">
+
+                <ImageView
+                    android:id="@+id/team1Img"
+                    android:layout_width="20sp"
+                    android:layout_height="20sp"
+                    android:adjustViewBounds="true"
+                    />
+                <TextView
+                    android:id="@+id/team1Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="20sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginStart="10sp"/>
+
+
+            </TableRow>
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp">
+
+
+                <ImageView
+                    android:layout_width="20sp"
+                    android:id="@+id/team2Img"
+                    android:layout_height="20sp"
+                    android:adjustViewBounds="true"
+                    />
+                <TextView
+                    android:id="@+id/team2Text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="20sp"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginStart="10sp"/>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp">
+
+                <ImageView
+                    android:layout_width="20sp"
+                    android:id="@+id/team3Img"
+                    android:layout_height="20sp"
+                    android:adjustViewBounds="true"
+                    />
+
+                <TextView
+                    android:id="@+id/team3Text"
+                    android:layout_width="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginStart="10sp"
+                    android:text=""
+
+                    />
+
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp">
+
+
+                <ImageView
+                    android:layout_width="20sp"
+                    android:id="@+id/team4Img"
+                    android:layout_height="20sp"
+                    android:adjustViewBounds="true"
+                    />
+
+                <TextView
+                    android:id="@+id/team4Text"
+                    android:layout_width="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginStart="10sp"/>
+
+            </TableRow>
+
+
+            </LinearLayout>
+
+
+
+        <ScrollView
+
+            android:id="@+id/scrollView2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Select four teams"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+            tools:layout_editor_absoluteX="0dp"
+            tools:layout_editor_absoluteY="0dp"
+            android:layout_column="0"
+            android:layout_marginLeft="20sp">
 
-        <CheckBox
-            android:id="@+id/astral"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="selectItem"
-            android:text="Astralis" />
+            <LinearLayout
+                android:id="@+id/linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical"
 
-        <CheckBox
-            android:id="@+id/sk"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="selectItem"
-            android:text="SK" />
 
-        <CheckBox
-            android:id="@+id/Cloud9"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="selectItem"
-            android:text="Cloud9" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.466">
 
-        <CheckBox
-            android:id="@+id/fnatic"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="selectItem"
-            android:text="Fnatic" />
 
-        <CheckBox
-            android:id="@+id/virtuspro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="selectItem"
-            android:text="Virtus.pro" />
+                <TextView
+                    android:id="@+id/select4Teams"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Select four teams"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-        <CheckBox
-            android:id="@+id/nip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="selectItem"
-            android:text="NiP" />
 
-        <CheckBox
-            android:id="@+id/flipsid3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Flipsid3"
-            android:onClick="selectItem"/>
+                <TextView
+                    android:id="@+id/Brazilian"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20sp"
+                    android:text="Brazilian teams"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
-        <CheckBox
-            android:id="@+id/navi"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="selectItem"
-            android:text="Natus Vincere" />
 
-        <CheckBox
-            android:id="@+id/g2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="selectItem"
-            android:text="G2" />
+                <CheckBox
+                    android:id="@+id/sk"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="selectItem"
+                    android:text="SK" />
 
-        <CheckBox
-            android:id="@+id/northCheck"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="selectItem"
-            android:text="North" />
+                <CheckBox
+                    android:id="@+id/immortals"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="selectItem"
+                    android:text="Immortals" />
 
-        <CheckBox
-            android:id="@+id/Faze"
-            android:layout_width="138dp"
-            android:layout_height="wrap_content"
-            android:onClick="selectItem"
-            android:text="FaZe" />
 
-        <CheckBox
-            android:id="@+id/liquid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="selectItem"
-            android:text="Liquid" />
+                <TextView
+                    android:id="@+id/danish"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20sp"
+                    android:text="Danish teams"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
-        <CheckBox
-            android:id="@+id/mousesports"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="selectItem"
-            android:text="mousesports" />
+                <CheckBox
+                    android:id="@+id/astral"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="selectItem"
+                    android:text="Astralis" />
 
-        <CheckBox
-            android:id="@+id/gambit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="selectItem"
-            android:text="Gambit" />
 
-        <CheckBox
-            android:id="@+id/heroicCheck"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="selectItem"
-            android:text="Heroic" />
+                <CheckBox
+                    android:id="@+id/northCheck"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="selectItem"
+                    android:text="North" />
 
-        <Button
-            android:id="@+id/saveButt"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="save"
-            tools:layout_editor_absoluteX="46dp"
-            tools:layout_editor_absoluteY="438dp" />
+                <CheckBox
+                    android:id="@+id/heroicCheck"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="selectItem"
+                    android:text="Heroic" />
 
-    </LinearLayout>
 
+                <TextView
+                    android:id="@+id/america"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20sp"
+                    android:text="American teams"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+
+                <CheckBox
+                    android:id="@+id/Cloud9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="selectItem"
+                    android:text="Cloud9" />
+
+                <CheckBox
+                    android:id="@+id/liquid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="selectItem"
+                    android:text="Liquid" />
+
+
+                <TextView
+                    android:id="@+id/rest"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20sp"
+                    android:text="Rest"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+                <CheckBox
+                    android:id="@+id/fnatic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="selectItem"
+                    android:text="Fnatic" />
+
+                <CheckBox
+                    android:id="@+id/virtuspro"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="selectItem"
+                    android:text="Virtus.pro" />
+
+                <CheckBox
+                    android:id="@+id/nip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="selectItem"
+                    android:text="NiP" />
+
+                <CheckBox
+                    android:id="@+id/flipsid3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="selectItem"
+                    android:text="Flipsid3" />
+
+                <CheckBox
+                    android:id="@+id/navi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="selectItem"
+                    android:text="Natus Vincere" />
+
+                <CheckBox
+                    android:id="@+id/g2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="selectItem"
+                    android:text="G2" />
+
+
+                <CheckBox
+                    android:id="@+id/Faze"
+                    android:layout_width="138dp"
+                    android:layout_height="wrap_content"
+                    android:onClick="selectItem"
+                    android:text="FaZe" />
+
+
+                <CheckBox
+                    android:id="@+id/mousesports"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="selectItem"
+                    android:text="mousesports" />
+
+                <CheckBox
+                    android:id="@+id/gambit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="selectItem"
+                    android:text="Gambit" />
+
+
+            </LinearLayout>
+
+        </ScrollView>
+    </GridLayout>
 
 
 </android.support.constraint.ConstraintLayout>

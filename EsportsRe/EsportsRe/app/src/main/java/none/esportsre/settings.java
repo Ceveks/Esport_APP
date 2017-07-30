@@ -13,6 +13,8 @@ import android.support.v7.widget.ButtonBarLayout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -37,9 +39,15 @@ public class settings extends AppCompatActivity {
     CheckBox virtus;
     CheckBox g2;
     CheckBox heroic;
-    Button save;
     CheckBox flip;
+    CheckBox imm;
 
+    Button save;
+
+    TextView team1Text, team2Text, team3Text, team4Text;
+    ImageView team1Img, team2Img, team3Img, team4Img;
+
+    String team1, team2, team3, team4;
 
     ArrayList<String> selected = new ArrayList<>();
 
@@ -48,6 +56,8 @@ public class settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        favteams();
 
         fnatic = (CheckBox) findViewById(R.id.fnatic);
         north = (CheckBox) findViewById(R.id.northCheck);
@@ -64,23 +74,93 @@ public class settings extends AppCompatActivity {
         g2 = (CheckBox) findViewById(R.id.g2);
         heroic = (CheckBox) findViewById(R.id.heroicCheck);
         save = (Button) findViewById(R.id.saveButt);
+        imm = (CheckBox) findViewById(R.id.immortals);
         flip = (CheckBox) findViewById(R.id.flipsid3);
+        team1Text =(TextView) findViewById(R.id.team1Text);
+        team2Text =(TextView) findViewById(R.id.team2Text);
+        team3Text =(TextView) findViewById(R.id.team3Text);
+        team4Text =(TextView) findViewById(R.id.team4Text);
+        team1Img =(ImageView) findViewById(R.id.team1Img);
+        team2Img =(ImageView) findViewById(R.id.team2Img);
+        team3Img =(ImageView) findViewById(R.id.team3Img);
+        team4Img =(ImageView) findViewById(R.id.team4Img);
+
+        team1Text.setText(team1);
+        team2Text.setText(team2);
+        team3Text.setText(team3);
+        team4Text.setText(team4);
+
+
+
+        String mDrawableName1 = team1;
+        if (team1.isEmpty()) {
+            mDrawableName1 = "questionmark";
+            int resID = getResources().getIdentifier(mDrawableName1, "drawable", getPackageName());
+            team1Img.setBackgroundResource(resID);
+
+
+        } else {
+            int resID = getResources().getIdentifier(mDrawableName1, "drawable", getPackageName());
+            team1Img.setBackgroundResource(resID);
+        }
+        String mDrawableName2 = team2;
+        if (team2.isEmpty()) {
+            mDrawableName2 = "questionmark";
+            int resID = getResources().getIdentifier(mDrawableName2, "drawable", getPackageName());
+            team2Img.setBackgroundResource(resID);
+        } else {
+            int resID = getResources().getIdentifier(mDrawableName2, "drawable", getPackageName());
+
+
+            team2Img.setBackgroundResource(resID);
+        }
+        String mDrawableName3 = team3;
+        if (team3.isEmpty()) {
+            mDrawableName3 = "questionmark";
+            int resID = getResources().getIdentifier(mDrawableName3, "drawable", getPackageName());
+            team3Img.setBackgroundResource(resID);
+        } else {
+            int resID = getResources().getIdentifier(mDrawableName3, "drawable", getPackageName());
+
+            team3Img.setBackgroundResource(resID);
+        }
+        String mDrawableName4 = team4;
+        if (team4.isEmpty()) {
+            mDrawableName4 = "questionmark";
+            int resID = getResources().getIdentifier(mDrawableName4, "drawable", getPackageName());
+            team4Img.setBackgroundResource(resID);
+        } else {
+            int resID = getResources().getIdentifier(mDrawableName4, "drawable", getPackageName());
+
+            team4Img.setBackgroundResource(resID);
+        }
+
 
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(selected.size()==4){
+                if(selected.size()>0 && selected.size()<5){
+
 
 
                     String[] newArray = selected.toArray(new String[selected.size()]);
                     SharedPreferences teams = getSharedPreferences("favteams", Context.MODE_PRIVATE);
 
                     SharedPreferences.Editor editor = teams.edit();
+
+
+                    for(int x=0; x<selected.size(); x++){
+                        editor.putString("team"+x, newArray[x]);
+                    }
+                    /*
                     editor.putString("team1", newArray[0]);
                     editor.putString("team2", newArray[1]);
                     editor.putString("team3", newArray[2]);
                     editor.putString("team4", newArray[3]);
+                    */
+
+
                     editor.apply();
 
                     selected.clear();
@@ -100,6 +180,9 @@ public class settings extends AppCompatActivity {
                     }
                     if(north.isChecked()){
                         north.toggle();
+                    }
+                    if(imm.isChecked()){
+                        imm.toggle();
                     }
                     if(virtus.isChecked()){
                         virtus.toggle();
@@ -140,6 +223,7 @@ public class settings extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please only select 4 teams", Toast.LENGTH_SHORT).show();
 
                 }
+                /*
                 if(selected.size()==3) {
                     Toast.makeText(getApplicationContext(), "Please select 1 more team", Toast.LENGTH_SHORT).show();
 
@@ -148,10 +232,12 @@ public class settings extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please select 2 more teams", Toast.LENGTH_SHORT).show();
 
                 }
-                if(selected.size()==1) {
+
+                if(selected.size()<1) {
                     Toast.makeText(getApplicationContext(), "Please select 3 more teams", Toast.LENGTH_SHORT).show();
 
                 }
+*/
 
             }
         });
@@ -168,6 +254,16 @@ public class settings extends AppCompatActivity {
                     }
                     else{
                         selected.remove("fnatic");
+                    }
+                    break;
+
+                case R.id.immortals:
+
+                    if(checked) {
+                        selected.add("immortals");
+                    }
+                    else{
+                        selected.remove("immortals");
                     }
                     break;
                 case R.id.northCheck:
@@ -301,6 +397,18 @@ public class settings extends AppCompatActivity {
 
 
             }
+
     }
+
+    public void favteams(){
+        SharedPreferences teams = getSharedPreferences("favteams", Context.MODE_PRIVATE);
+        team1 = teams.getString("team0", "");
+        team2 = teams.getString("team1", "");
+        team3 = teams.getString("team2", "");
+        team4 = teams.getString("team3", "");
+
+    }
+
+
 
 }

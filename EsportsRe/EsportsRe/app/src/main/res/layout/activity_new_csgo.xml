@@ -91,28 +91,37 @@
                     android:visibility="visible" />
 
                 <Space
-                    android:layout_width="1dp"
-                    android:layout_height="50dp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <ImageButton
+
                     android:id="@+id/team1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="120sp"
+                    android:layout_marginRight="10sp"
+                    android:layout_marginEnd="10sp"
                     android:layout_weight="1"
+                    android:adjustViewBounds="true"
                     />
 
                 <ImageButton
                     android:id="@+id/team2"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginStart="10sp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="120sp"
                     android:layout_weight="1"
+                    android:adjustViewBounds="true"
 
                     />
 
@@ -126,20 +135,26 @@
 
                 <Space
                     android:layout_width="match_parent"
-                    android:layout_height="10dp"
+                    android:layout_height="20dp"
                     android:layout_weight="1" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp">
 
                 <ImageButton
                     android:id="@+id/team3"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_marginRight="10sp"
+                    android:layout_marginEnd="10sp"
+                    android:layout_height="120sp"
                     android:layout_weight="1"
+                    android:adjustViewBounds="true"
+
 
                   />
 
@@ -147,8 +162,11 @@
                 <ImageButton
                     android:id="@+id/team4"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10sp"
+                    android:layout_marginStart="10sp"
+                    android:layout_height="120sp"
                     android:layout_weight="1"
+                    android:adjustViewBounds="true"
 
                  />
 

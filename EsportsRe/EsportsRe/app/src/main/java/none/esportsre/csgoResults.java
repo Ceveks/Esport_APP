@@ -49,8 +49,8 @@ public class csgoResults extends AppCompatActivity {
         goback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent csgo = new Intent(csgoResults.this, csgo.class);
-                csgo.putExtra("savedSearchedWord",searchedWord);
+                Intent csgo = new Intent(csgoResults.this, csgoSearched.class);
+                csgo.putExtra("teamName",searchedWord);
                 startActivity(csgo);
             }
         });
@@ -85,25 +85,13 @@ public class csgoResults extends AppCompatActivity {
                 //Se om det søgte navn matcher nogen af disse:
 
                 switch (toLowerCase) {
-                    case "sk":
 
-                        try {
-                            doc = Jsoup.connect("https://www.hltv.org/results?team=6137").get();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        break;
 
-                    case "navi":
 
-                        try {
-                            doc = Jsoup.connect("https://www.hltv.org/results?team=4608").get();
-                            toLowerCase = "natus vincere";
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        break;
+                    /*
+                   <----- DANSK ----->
 
+                     */
                     case "north":
 
                         try {
@@ -121,14 +109,19 @@ public class csgoResults extends AppCompatActivity {
                         }
                         break;
 
-                    case "cloud9":
+                    case "heroic":
 
                         try {
-                            doc = Jsoup.connect("https://www.hltv.org/results?team=5752").get();
+                            doc = Jsoup.connect("https://www.hltv.org/results?team=7175").get();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
                         break;
+
+                    /*
+                   <----- ØST ----->
+
+                     */
 
                     case "flipsid3":
 
@@ -138,6 +131,18 @@ public class csgoResults extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         break;
+
+
+                    case "navi":
+
+                        try {
+                            doc = Jsoup.connect("https://www.hltv.org/results?team=4608").get();
+                            toLowerCase = "natus vincere";
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
                     case "virtus":
 
                         try {
@@ -146,52 +151,11 @@ public class csgoResults extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         break;
-                    case "nip":
 
-                        try {
-                            doc = Jsoup.connect("https://www.hltv.org/results?team=4411").get();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        break;
                     case "natus vincere":
 
                         try {
                             doc = Jsoup.connect("https://www.hltv.org/results?team=4608").get();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    case "g2":
-
-                        try {
-                            doc = Jsoup.connect("https://www.hltv.org/results?team=5995").get();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-                    case "faze":
-
-                        try {
-                            doc = Jsoup.connect("https://www.hltv.org/results?team=6667").get();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-
-                    case "liquid":
-
-                        try {
-                            doc = Jsoup.connect("https://www.hltv.org/results?team=5973").get();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        break;
-
-                    case "mousesports":
-
-                        try {
-                            doc = Jsoup.connect("https://www.hltv.org/results?team=4494").get();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -206,10 +170,73 @@ public class csgoResults extends AppCompatActivity {
                         }
                         break;
 
-                    case "heroic":
+                    /*
+                   <----- FRANSK ----->
+
+                     */
+
+                    case "g2":
 
                         try {
-                            doc = Jsoup.connect("https://www.hltv.org/results?team=7175").get();
+                            doc = Jsoup.connect("https://www.hltv.org/results?team=5995").get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+                    case "envyus":
+
+                        try {
+                            doc = Jsoup.connect("https://www.hltv.org/results?team=5991").get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+                    /*
+                   <----- Europæisk ----->
+
+                     */
+
+                    case "faze":
+
+                        try {
+                            doc = Jsoup.connect("https://www.hltv.org/results?team=6667").get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+
+
+                    case "mousesports":
+
+                        try {
+                            doc = Jsoup.connect("https://www.hltv.org/results?team=4494").get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+
+                    /*
+                   <----- SVENSK ----->
+
+                     */
+
+                    case "godsent":
+
+                        try {
+                            doc = Jsoup.connect("https://www.hltv.org/results?team=6902").get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+                    case "nip":
+
+                        try {
+                            doc = Jsoup.connect("https://www.hltv.org/results?team=4411").get();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -223,6 +250,93 @@ public class csgoResults extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         break;
+
+
+
+                    /*
+                   <----- AMERIKANSK ----->
+
+                     */
+
+                    case "cloud9":
+
+                        try {
+                            doc = Jsoup.connect("https://www.hltv.org/results?team=5752").get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+                    case "nrg":
+
+                        try {
+                            doc = Jsoup.connect("https://www.hltv.org/results?team=6673").get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+                    case "optic":
+
+                        try {
+                            doc = Jsoup.connect("https://www.hltv.org/results?team=6615").get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+                    case "clg":
+
+                        try {
+                            doc = Jsoup.connect("https://www.hltv.org/results?team=5974").get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+                    case "liquid":
+
+                        try {
+                            doc = Jsoup.connect("https://www.hltv.org/results?team=5973").get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+
+  /*
+                   <----- Brasiliansk ----->
+
+                     */
+                    case "luminosity":
+
+                        try {
+                            doc = Jsoup.connect("https://www.hltv.org/results?team=6290").get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+
+                    case "sk":
+
+                        try {
+                            doc = Jsoup.connect("https://www.hltv.org/results?team=6137").get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+                    case "immortals":
+
+                        try {
+                            doc = Jsoup.connect("https://www.hltv.org/results?team=7010").get();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        break;
+
+
 
                 }
                 Elements ele;

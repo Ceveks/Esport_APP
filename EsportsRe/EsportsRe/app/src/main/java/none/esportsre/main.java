@@ -27,15 +27,6 @@ public class main extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newmain);
         csgoButton = (Button) findViewById(R.id.Cs_button);
-        csgoButton.setEnabled(false);
-        SharedPreferences teams = getSharedPreferences("favteams", Context.MODE_PRIVATE);
-
-
-        if(teams.contains("team1")){
-           csgoButton.setEnabled(true);
-        }else {
-            Toast.makeText(this, "Go to settings and choose four teams", Toast.LENGTH_LONG).show();
-        }
 
 
 

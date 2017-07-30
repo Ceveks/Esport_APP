@@ -38,21 +38,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".main" />
         </activity>
-
-
         <activity android:name=".lol" />
 
         <receiver
             android:name=".MyBroadcastReceiver"
-            android:process=":remote"></receiver>
+            android:process=":remote" />
 
         <activity
             android:name=".settings"
             android:label="Settings"
-            android:parentActivityName=".main">
+            android:parentActivityName=".csgo">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".main" />
+                android:value=".csgo" />
         </activity>
         <activity
             android:name=".csgoResults"
@@ -78,14 +76,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".csgo" />
         </activity>
-        <activity android:name=".saved_matches"
+        <activity
+            android:name=".saved_matches"
             android:label="Counter-Strike"
             android:parentActivityName=".csgo">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".csgo" />
-
         </activity>
+        <activity android:name=".headtohead"></activity>
     </application>
 
 </manifest>

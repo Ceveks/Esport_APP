@@ -80,6 +80,8 @@ public class csgo extends AppCompatActivity {
             int resID = getResources().getIdentifier(mDrawableName1, "drawable", getPackageName());
             ast.setBackgroundResource(resID);
 
+            ast.setEnabled(false);
+
 
         } else {
             int resID = getResources().getIdentifier(mDrawableName1, "drawable", getPackageName());
@@ -90,6 +92,7 @@ public class csgo extends AppCompatActivity {
             mDrawableName2 = "questionmark";
             int resID = getResources().getIdentifier(mDrawableName2, "drawable", getPackageName());
             nort.setBackgroundResource(resID);
+            nort.setEnabled(false);
         } else {
             int resID = getResources().getIdentifier(mDrawableName2, "drawable", getPackageName());
 
@@ -101,6 +104,7 @@ public class csgo extends AppCompatActivity {
             mDrawableName3 = "questionmark";
             int resID = getResources().getIdentifier(mDrawableName3, "drawable", getPackageName());
             hero.setBackgroundResource(resID);
+            hero.setEnabled(false);
         } else {
             int resID = getResources().getIdentifier(mDrawableName3, "drawable", getPackageName());
 
@@ -111,6 +115,7 @@ public class csgo extends AppCompatActivity {
             mDrawableName4 = "questionmark";
             int resID = getResources().getIdentifier(mDrawableName4, "drawable", getPackageName());
             cloud.setBackgroundResource(resID);
+            cloud.setEnabled(false);
         } else {
             int resID = getResources().getIdentifier(mDrawableName4, "drawable", getPackageName());
 
@@ -223,10 +228,10 @@ public class csgo extends AppCompatActivity {
 
     public void favteams(){
         SharedPreferences teams = getSharedPreferences("favteams", Context.MODE_PRIVATE);
-        getteam1 = teams.getString("team1", "");
-        getteam2 = teams.getString("team2", "");
-        getteam3 = teams.getString("team3", "");
-        getteam4 = teams.getString("team4", "");
+        getteam1 = teams.getString("team0", "");
+        getteam2 = teams.getString("team1", "");
+        getteam3 = teams.getString("team2", "");
+        getteam4 = teams.getString("team3", "");
 
     }
 
